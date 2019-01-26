@@ -216,6 +216,26 @@
       </div>
     </div>
   </div>
+
+  <div id="create_office" class="modal">
+    <form class="modal-content" action="#">
+      <div class="container">
+        <h3>Create New Government Office</h3>
+        <p>Please fill this form to create new Government office</p>
+        <hr>
+        <label for="office_title"><strong>Office Title</strong></label>
+        <input type="text" placeholder="New Office Title" name="office_title" required>
+  
+        <label for="description"><strong>Office Type</strong></label>
+        <input type="textarea" placeholder="federal/ legislative/ state/ local government" name="description" required>
+  
+        <div class="modalbtn-section">
+          <button type="button" onclick="modal('create_office')" class="modalbtn cancel-btn">Cancel</button>
+          <button type="submit" class="modalbtn success-btn">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
   
   <script type="text/javascript" src="../scripts/main.js"></script>  
 </body>
