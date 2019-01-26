@@ -155,32 +155,54 @@
         </div>
       </div>
     </div>
-</section>
+  </section>
 
-<!-- Modals -->
-<div id="create_party" class="modal">
-  <form class="modal-content" action="#">
-    <div class="container">
-      <h3>Create New Political Party</h3>
-      <p>Please fill this form to create new political party</p>
-      <hr>
-      <label for="party_name"><strong>Party name</strong></label>
-      <input type="text" name="office_title" placeholder="New Party Name" required>
+  <!-- Modals -->
+  <div id="create_party" class="modal">
+    <form class="modal-content" action="#">
+      <div class="container">
+        <h3>Create New Political Party</h3>
+        <p>Please fill this form to create new political party</p>
+        <hr>
+        <label for="party_name"><strong>Party name</strong></label>
+        <input type="text" name="office_title" placeholder="New Party Name" required>
 
-      <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
-      <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+        <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+        <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
 
-      <label for="party_logo"><strong>Official Logo</strong></label>
-      <input type="file" name="party-logo" accept="image/*" required>
+        <label for="party_logo"><strong>Official Logo</strong></label>
+        <input type="file" name="party-logo" accept="image/*" required>
 
-      <div class="modalbtn-section">
-        <button type="button" onclick="modal('create_party')" class="modalbtn cancel-btn">Cancel</button>
-        <button type="submit" class="modalbtn success-btn">Create</button>
+        <div class="modalbtn-section">
+          <button type="button" onclick="modal('create_party')" class="modalbtn cancel-btn">Cancel</button>
+          <button type="submit" class="modalbtn success-btn">Create</button>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
-<script type="text/javascript" src="../scripts/main.js"></script>  
+  <div id="edit_party" class="modal">
+    <form class="modal-content" action="#">
+      <div class="container">
+        <h3>Edit Political Party</h3>
+        <hr>
+        <label for="party_name"><strong>Party name</strong></label>
+        <input type="text" name="office_title" placeholder="New Party Name" required>
+  
+        <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+        <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+  
+        <label for="party_logo"><strong>Official Logo</strong></label>
+        <input type="file" name="party-logo" accept="image/*" required>
+  
+        <div class="modalbtn-section">
+          <button type="button" onclick="modal('edit_party')" class="modalbtn cancel-btn">Cancel</button>
+          <button type="submit" class="modalbtn success-btn">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script type="text/javascript" src="../scripts/main.js"></script>  
 </body>
 </html>
