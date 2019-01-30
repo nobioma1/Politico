@@ -19,5 +19,16 @@ describe('Party', () => {
           done();
         });
     });
+    // Test to get a party
+    it('should get only one party', (done) => {
+      const id = 1;
+      chai.request(app)
+        .get(`/api/v1/parties/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
   });
 });
