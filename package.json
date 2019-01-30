@@ -1,0 +1,29 @@
+{
+  "name": "politico_api",
+  "version": "1.0.0",
+  "description": "A Web Application API v1",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require babel-register tests/*.js --exit",
+    "start": "nodemon --exec babel-node --presets babel-preset-env ./index.js"
+  },
+  "author": "Obioma Noble",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.15.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1"
+  }
+}
