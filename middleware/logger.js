@@ -1,3 +1,3 @@
 const logger = require('morgan');
 
-module.exports = logger;
+export default logger;
