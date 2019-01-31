@@ -19,4 +19,4 @@ const parties = [
   },
 ];
 
-module.exports = parties
+export default parties
