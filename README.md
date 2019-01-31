@@ -30,23 +30,12 @@ To install and get app running:
 - Cd into cloned directory
 
 ----installing packages------
-Express, body-parser, morgan, joi - npm install --save express body-parser morgan joi 
-nodemon(node monitor) - globally - npm i -g nodemon
-
------setting up eslint------
-- npm i -D eslint eslint-config-airbnb-base eslint-plugin-import
-- Create .eslintrc.js file on the root directory, in file:
-	module.exports = { 
-		"extends": "airbnb-base",
-		"rules": {
-		"linebreak-style": 0
-	    }  
-	};
+npm i
 
 ## Running the tests
 
 To run tests on api
-- npm tests
+- npm test
 - or using Postman
 
 ## Deployment
@@ -61,7 +50,7 @@ To run tests on api
 
 
 ## Versioning
- 
+ v1
 
 ## Authors
 
