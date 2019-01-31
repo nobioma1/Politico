@@ -3,6 +3,9 @@
 This is a web application designed to be a platform which both the politicians and citizens can use.
 Politico enables citizens to vote for politicians running for different offices.
 
+
+[![Build Status](https://travis-ci.com/nobioma1/Politico.svg?branch=develop)](https://travis-ci.com/nobioma1/Politico)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
