@@ -3,30 +3,42 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 import app from '../index';
+import parties from "../models/parties";
+
 
 chai.use(chaiHttp);
 chai.should();
 
-describe('Party', () => {
-  describe('GET /api/v1/parties', () => {
+describe('TESTING POLITICO ALL ENDPOINTS', () => {
+  // Test For Party
+  describe('-TESTING PARTIES ENDPOINTS', () => {
     // Test to get all parties
-    it('should get all parties', (done) => {
-      chai.request(app)
+    it('should GET all parties', (done) => {
+      chai
+        .request(app)
         .get('/api/v1/parties')
         .end((err, res) => {
           res.should.have.status(200);
+          res.should.be.json;
           res.body.should.be.a('object');
+          res.body.data.should.be.a('array');
           done();
         });
     });
     // Test to get a party
-    it('should get only one party', (done) => {
-      const id = 1;
+    it('should GET only one party', (done) => {
+      const id = parties.length;
       chai.request(app)
         .get(`/api/v1/parties/${id}`)
         .end((err, res) => {
           res.should.have.status(200);
+          res.should.be.json;
           res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.status.should.equal(200);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
           done();
         });
     });

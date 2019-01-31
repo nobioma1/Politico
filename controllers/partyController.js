@@ -1,12 +1,13 @@
 import parties from '../models/parties';
 
 class PartyController {
-  // To Get all Party
+  // Get all Party
   static getAllParties(req, res) {
-    return res.status(200).json({
-      status: 200,
-      data: parties
-    });
+    return res.status(200)
+      .json({
+        status: 200,
+        data: parties,
+      });
   }
 
   // Get a Particular Party
@@ -24,7 +25,7 @@ class PartyController {
     return res.status(200)
       .json({
         status: 200,
-        data: findParty,
+        data: [findParty],
       });
   }
 }

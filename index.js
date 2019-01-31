@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import logger from './middleware/logger';
 import partiesRouter from './routes/partiesRoute';
 
+
 // Instance of express
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(logger('dev'));
 app.use('/api/v1/parties', partiesRouter);
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`app is running on port ${port}`);
 });
 
