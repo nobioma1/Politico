@@ -11,3 +11,12 @@ export const partyValidator = (body) => {
 
   return Joi.validate(body, partySchema, { abortEarly: false });
 };
+
+export const officeValidator = (body) => {
+  const officeSchema = Joi.object().keys({
+    type: Joi.string().required(),
+    name: Joi.string().required(),
+  });
+
+  return Joi.validate(body, officeSchema, { abortEarly: false });
+};
