@@ -66,6 +66,7 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           done();
         });
     });
+
     // Test to edit a party
     it('should EDIT a Party', (done) => {
       const id = parties.length;
