@@ -6,6 +6,8 @@ Politico enables citizens to vote for politicians running for different offices.
 
 [![Build Status](https://travis-ci.com/nobioma1/Politico.svg?branch=develop)](https://travis-ci.com/nobioma1/Politico)
 
+[![Coverage Status](https://coveralls.io/repos/github/nobioma1/Politico/badge.svg?branch=ft-get-an-office-163645183)](https://coveralls.io/github/nobioma1/Politico?branch=ft-get-an-office-163645183)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
