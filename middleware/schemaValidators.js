@@ -19,4 +19,3 @@ export const officeValidator = (body) => {
   });
 
   return Joi.validate(body, officeSchema, { abortEarly: false });
-};
