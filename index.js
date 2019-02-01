@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from './middleware/logger';
 import partiesRouter from './routes/partiesRoute';
+import officeRouter from './routes/officesRoute';
 
 
 // Instance of express
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.use('/api/v1/parties', partiesRouter);
+app.use('/api/v1/offices', officeRouter);
+
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
