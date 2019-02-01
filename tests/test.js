@@ -66,5 +66,30 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           done();
         });
     });
+
+    // Test to edit a party
+    it('should EDIT a Party', (done) => {
+      const id = parties.length;
+      chai.request(app)
+        .put(`/api/v1/parties/${id}`)
+        .send({
+          name: 'All Testing Party Edited',
+          hqAddress: 'Testing The Streets Unit Edited',
+          logoUrl: 'testing.jpg Edited',
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.status.should.equal(200);
+          res.body.should.have.property('data');
+          res.body.data[0].should.be.a('object');
+          res.body.data[0].name.should.equal('All Testing Party Edited');
+          res.body.data[0].hqAddress.should.equal('Testing The Streets Unit Edited');
+          res.body.data[0].logoUrl.should.equal('testing.jpg Edited');
+          done();
+        });
+    });
   });
 });
