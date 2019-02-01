@@ -66,7 +66,6 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           done();
         });
     });
-
     // Test to edit a party
     it('should EDIT a Party', (done) => {
       const id = parties.length;
@@ -89,6 +88,22 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           res.body.data[0].hqAddress.should.equal('Testing The Streets Unit Edited');
           res.body.data[0].logoUrl.should.equal('testing.jpg Edited');
           done();
+        });
+    });
+    // Test to DELETE a party
+    it('should DELETE one party', (done) => {
+      const id = parties.length;
+      chai.request(app)
+        .delete(`/api/v1/parties/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+      // confirm delete was complete
+      chai.request(app)
+        .get(`/api/v1/parties/${id}`)
+        .end((err, res) => {
+          res.should.have.status(404);
         });
     });
   });

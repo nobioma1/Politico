@@ -110,6 +110,24 @@ class PartyController {
       data: [parties.find(item => item.id === parseInt(req.params.id, 10))],
     });
   }
+
+  // Delete a particular party
+  static deleteParty(req, res) {
+    const deleteParty = parties.find(party => party.id === parseInt(req.params.id, 10));
+
+    if (!deleteParty) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Party not found, delete function not completed',
+      });
+    }
+
+    parties.splice(parties.indexOf(deleteParty), 1);
+    return res.status(200).json({
+      status: 200,
+      data: [deleteParty],
+    });
+  }
 }
 
 export default PartyController;
