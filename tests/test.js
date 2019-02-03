@@ -6,7 +6,6 @@ import app from '../index';
 import parties from '../models/parties';
 import offices from '../models/offices';
 
-
 chai.use(chaiHttp);
 chai.should();
 
@@ -23,23 +22,6 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           res.should.be.json;
           res.body.should.be.a('object');
           res.body.data.should.be.a('array');
-          done();
-        });
-    });
-    // Test to get a party
-    it('should GET only one party', (done) => {
-      const id = parties.length;
-      chai.request(app)
-        .get(`/api/v1/parties/${id}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-          res.body.should.be.a('object');
-          res.body.should.have.property('status');
-          res.body.status.should.equal(200);
-          res.body.should.have.property('data');
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.be.a('object');
           done();
         });
     });
@@ -60,6 +42,26 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           res.body.should.have.property('status');
           res.body.status.should.equal(201);
           res.body.should.have.property('data');
+          res.body.data[0].should.be.a('object');
+          res.body.data[0].name.should.equal('All Testing Party');
+          res.body.data[0].hqAddress.should.equal('Testing The Streets Unit');
+          res.body.data[0].logoUrl.should.equal('testing.jpg');
+          done();
+        });
+    });
+    // Test to get a party
+    it('should GET only one party', (done) => {
+      const id = parties.length;
+      chai.request(app)
+        .get(`/api/v1/parties/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.status.should.equal(200);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
           res.body.data[0].name.should.equal('All Testing Party');
           res.body.data[0].hqAddress.should.equal('Testing The Streets Unit');
@@ -91,6 +93,7 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
           done();
         });
     });
+
     // Test to DELETE a party
     it('should DELETE one party', (done) => {
       const id = parties.length;
@@ -108,62 +111,62 @@ describe('TESTING POLITICO ALL ENDPOINTS', () => {
         });
     });
   });
-});
 
-// TEST FOR POLITICAL OFFICES
-describe('-TESTING POLITICAL OFFICES ENDPOINTS', () => {
-  // Test to get all offices
-  it('should GET all offices', (done) => {
-    chai
-      .request(app)
-      .get('/api/v1/offices')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.data.should.be.a('array');
-        res.body.data.length.should.equal(offices.length);
-        done();
-      });
-  });
-  // Test to create office
-  it('should CREATE a new office', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/offices')
-      .send({
-        type: 'Test type',
-        name: 'Test President',
-      })
-      .end((err, res) => {
-        res.should.have.status(201);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.equal(201);
-        res.body.should.have.property('data');
-        res.body.data[0].should.be.a('object');
-        res.body.data[0].type.should.equal('Test type');
-        res.body.data[0].name.should.equal('Test President');
-        done();
-      });
-  });
-  // Test to get a office
-  it('should GET only one office', (done) => {
-    const id = offices.length;
-    chai
-      .request(app)
-      .get(`/api/v1/offices/${id}`)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.equal(200);
-        res.body.should.have.property('data');
-        res.body.data[0].should.be.a('object');
-        res.body.data[0].type.should.equal('Test type');
-        res.body.data[0].name.should.equal('Test President');
-        done();
-      });
+  // TEST FOR POLITICAL OFFICES
+  describe('-TESTING POLITICAL OFFICES ENDPOINTS', () => {
+    // Test to get all offices
+    it('should GET all offices', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/offices')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.be.a('array');
+          res.body.data.length.should.equal(offices.length);
+          done();
+        });
+    });
+    // Test to create office
+    it('should CREATE a new office', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/offices')
+        .send({
+          type: 'Test type',
+          name: 'Test President',
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.status.should.equal(201);
+          res.body.should.have.property('data');
+          res.body.data[0].should.be.a('object');
+          res.body.data[0].type.should.equal('Test type');
+          res.body.data[0].name.should.equal('Test President');
+          done();
+        });
+    });
+    // Test to get a office
+    it('should GET only one office', (done) => {
+      const id = offices.length;
+      chai
+        .request(app)
+        .get(`/api/v1/offices/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.status.should.equal(200);
+          res.body.should.have.property('data');
+          res.body.data[0].should.be.a('object');
+          res.body.data[0].type.should.equal('Test type');
+          res.body.data[0].name.should.equal('Test President');
+          done();
+        });
+    });
   });
 });

@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import PartyController from '../controllers/partyController';
 
-const router = Router();
+const partyRouter = Router();
 
-router.get('/', PartyController.getAllParties);
-router.get('/:id', PartyController.getAParty);
-router.post('/', PartyController.createParty);
-router.put('/:id', PartyController.updateParty);
-router.delete('/:id', PartyController.deleteParty);
+partyRouter.post('/', PartyController.createParty);
+partyRouter.get('/', PartyController.getAllParties);
+partyRouter.put('/:id', PartyController.updateParty);
+partyRouter.get('/:id', PartyController.getAParty);
+partyRouter.delete('/:id', PartyController.deleteParty);
 
-export default router;
+
+export default partyRouter;
