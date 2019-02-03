@@ -2,34 +2,6 @@ import parties from '../models/parties';
 import { partyValidator } from '../middleware/schemaValidators';
 
 class PartyController {
-  // Get all Party
-  static getAllParties(req, res) {
-    return res.status(200)
-      .json({
-        status: 200,
-        data: parties,
-      });
-  }
-
-  // Get a Particular Party
-  static getAParty(req, res) {
-    const findParty = parties.find(party => party.id === parseInt(req.params.id, 10));
-
-    if (!findParty) {
-      return res.status(404)
-        .json({
-          status: 404,
-          error: 'Party Not Found',
-        });
-    }
-
-    return res.status(200)
-      .json({
-        status: 200,
-        data: [findParty],
-      });
-  }
-
   // Create a Party
   static createParty(req, res) {
     const party = {
@@ -40,8 +12,8 @@ class PartyController {
     };
 
     // Prevents Double entry
-    const partyExists = parties.find(value => value.type === req.body.type
-      && value.name === req.body.name);
+    const partyExists = parties.find(value => value.name === req.body.name
+      && value.hqAddress === req.body.hqAddress);
 
     if (partyExists) {
       return res.status(409).json({
@@ -109,6 +81,34 @@ class PartyController {
       status: 200,
       data: [parties.find(item => item.id === parseInt(req.params.id, 10))],
     });
+  }
+
+  // Get all Party
+  static getAllParties(req, res) {
+    return res.status(200)
+      .json({
+        status: 200,
+        data: parties,
+      });
+  }
+
+  // Get a Particular Party
+  static getAParty(req, res) {
+    const findParty = parties.find(party => party.id === parseInt(req.params.id, 10));
+
+    if (!findParty) {
+      return res.status(404)
+        .json({
+          status: 404,
+          error: 'Party Not Found',
+        });
+    }
+
+    return res.status(200)
+      .json({
+        status: 200,
+        data: [findParty],
+      });
   }
 
   // Delete a particular party
