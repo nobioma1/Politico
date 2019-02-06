@@ -6,7 +6,7 @@ export const partyValidator = (body) => {
   const partySchema = Joi.object().keys({
     name: Joi.string().required(),
     hqAddress: Joi.string().required(),
-    logoUrl: Joi.string(),
+    logoUrl: Joi.string().allow(''),
   });
 
   return Joi.validate(body, partySchema, { abortEarly: false });

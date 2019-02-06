@@ -5,7 +5,7 @@ const partyRouter = Router();
 
 partyRouter.post('/', PartyController.createParty);
 partyRouter.get('/', PartyController.getAllParties);
-partyRouter.put('/:id', PartyController.updateParty);
+partyRouter.put('/:id', PartyController.editParty);
 partyRouter.get('/:id', PartyController.getAParty);
 partyRouter.delete('/:id', PartyController.deleteParty);
 
