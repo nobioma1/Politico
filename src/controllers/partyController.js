@@ -1,9 +1,20 @@
 import db from '../db';
 import { partyValidator } from '../middleware/schemaValidators';
 
-const PartyController = {
-  // Create a Party
-  async createParty(req, res) {
+class PartyController {
+  /**
+   * Creates a new party
+   * @static
+   * @param {*} req
+   * Request
+   * @param {*} res
+   * Response
+   * @returns
+   * An Object containing status code and the new office if successful
+   * else an error code is returned with description of error
+   * @memberof PartyController
+   */
+  static async createParty(req, res) {
     const { name, hqAddress, logoUrl } = req.body;
     const createQuery = `INSERT INTO 
       parties(name, hqAddress, logoUrl, created_date)
@@ -11,9 +22,10 @@ const PartyController = {
       RETURNING *`;
     const values = [name.trim(), hqAddress.trim(), logoUrl.trim(), new Date()];
 
+    // validate the request from consumer.
     const validate = partyValidator(req.body);
     if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
       return res.status(422).json({
         status: 422,
         error: errorMessage,
@@ -38,9 +50,21 @@ const PartyController = {
         error: 'Unable to Create Party!! Server Error, Try Again',
       });
     }
-  },
+  }
 
-  async getAllParties(req, res) {
+  /**
+   * Gets all parties
+   * @static
+   * @param {*} req
+   * Request
+   * @param {*} res
+   * Response
+   * @returns
+   * An Object containing status code and all parties if successful
+   * else an error code is returned with description of error
+   * @memberof PartyController
+   */
+  static async getAllParties(req, res) {
     const allPartiesQuery = 'SELECT * FROM parties';
 
     try {
@@ -55,9 +79,21 @@ const PartyController = {
         error: 'Unable to get all parties!! Server Error, Please Try Again',
       });
     }
-  },
+  }
 
-  async getAParty(req, res) {
+  /**
+   * Get a particular party
+   * @static
+   * @param {*} req
+   * Request
+   * @param {*} res
+   * Response
+   * @returns
+   * An Object containing status code and the a particular party if successful
+   * else an error code is returned with description of error
+   * @memberof PartyController
+   */
+  static async getAParty(req, res) {
     const getPartyQuery = 'SELECT * FROM  parties WHERE id = $1';
 
     try {
@@ -78,17 +114,30 @@ const PartyController = {
         error: 'Unable to get Party!! Server Error, Please Try Again',
       });
     }
-  },
+  }
 
-  async editParty(req, res) {
+  /**
+   * Edit a party
+   * @static
+   * @param {*} req
+   * Request
+   * @param {*} res
+   * Response
+   * @returns
+   * An Object containing status code and a party if successful
+   * else an error code is returned with description of error
+   * @memberof PartyController
+   */
+  static async editParty(req, res) {
     const getPartyQuery = 'SELECT * FROM  parties WHERE id = $1';
     const editQuery = `UPDATE parties 
       SET name=$1, hqAddress=$2, logoURL=$3
       WHERE id=$4 RETURNING *`;
 
+    // validates the data sent by consumer
     const validate = partyValidator(req.body);
     if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
       return res.status(422).json({
         status: 422,
         error: errorMessage,
@@ -103,7 +152,12 @@ const PartyController = {
         });
       }
       const { name, hqAddress, logoUrl } = req.body;
-      const values = [name.trim(), hqAddress.trim(), logoUrl.trim(), req.params.id];
+      const values = [
+        name.trim(),
+        hqAddress.trim(),
+        logoUrl.trim(),
+        req.params.id,
+      ];
       const response = await db.query(editQuery, values);
       return res.status(200).send({
         status: 200,
@@ -115,9 +169,21 @@ const PartyController = {
         error: 'Party Edit Not Saved!! Server Error, Please Try Again',
       });
     }
-  },
+  }
 
-  async deleteParty(req, res) {
+  /**
+   * Delete a particular party given the id of the pary
+   * @static
+   * @param {*} req
+   * Request
+   * @param {*} res
+   * Response
+   * @returns
+   * An Object containing status code and deleted party if successful
+   * else an error code is returned with description of error
+   * @memberof PartyController
+   */
+  static async deleteParty(req, res) {
     const deleteQuery = 'DELETE FROM parties WHERE id=$1 RETURNING *';
     try {
       const { rows } = await db.query(deleteQuery, [req.params.id]);
@@ -137,7 +203,7 @@ const PartyController = {
         error: 'Party delete not completed!! Server Error, Please Try Again',
       });
     }
-  },
-};
+  }
+}
 
 export default PartyController;

@@ -2,16 +2,36 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const helpers = {
+  /**
+   * Hashing user password
+   * @param {*} password
+   * @returns
+   * returns a hashed password.
+   */
   hashPassword(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   },
-
+  /**
+ * Compares the password with hashed password
+ * @param {*} password
+ * @param {*} hashPassword
+ * @returns
+ * a Boolean True or False
+ */
   compareHashPassword(password, hashPassword) {
     return bcrypt.compareSync(password, hashPassword);
   },
-
-  generateToken(id, admin) {
-    const token = jwt.sign({ userId: id, isAdmin: admin }, process.env.SECRET, { expiresIn: '24h' });
+  /**
+ * Encrpyts a set of information that can be transmited
+ * inorder to authenticate a particular user
+ * @param {*} id
+ * @param {*} email
+ * @param {*} adminStatus
+ * @returns
+ * t
+ */
+  generateToken(id, email, adminStatus) {
+    const token = jwt.sign({ userId: id, userEmail: email, isAdmin: adminStatus }, process.env.SECRET, { expiresIn: '24h' });
     return token;
   },
 };
