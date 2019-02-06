@@ -1,7 +1,11 @@
 import express from 'express';
+import 'babel-polyfill';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import logger from './middleware/logger';
-import routes from './routes/index';
+import logger from './src/middleware/logger';
+import routes from './src/routes/index';
+
+dotenv.config();
 
 // Instance of express
 const app = express();
