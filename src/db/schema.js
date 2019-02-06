@@ -1,3 +1,4 @@
+// Database Queries defining the structure of the Database
 const tables = {
   partiesTable: `CREATE TABLE IF NOT EXISTS
     parties(
@@ -25,7 +26,7 @@ const tables = {
       phoneNumber VARCHAR(20) NOT NULL, 
       passportURL VARCHAR(200), 
       isAdmin BOOLEAN DEFAULT 'FALSE',
-      created_date TIMESTAMP
+      created_date TIMESTAMP DEFAULT NOW()
     )`,
 };
 

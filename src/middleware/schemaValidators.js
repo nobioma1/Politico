@@ -1,4 +1,4 @@
-// Schema - defines the shape of our object
+// Schema - Validating user request payload
 const Joi = require('joi');
 
 

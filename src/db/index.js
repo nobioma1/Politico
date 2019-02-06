@@ -4,10 +4,12 @@ import tables from './schema';
 
 dotenv.config();
 
+// changes db for testing purposes
 const pool = new Pool({
   connectionString: process.env.NODE_ENV !== 'test' ? process.env.DATABASE_URL : process.env.TEST_DATABASE_URL,
 });
 
+// On connect to db runs query for tables
 pool.connect(() => {
   pool.query(tables.partiesTable);
   pool.query(tables.officesTable);
@@ -27,6 +29,3 @@ export default {
     });
   },
 };
-
-// postgres://ypcharef:dMlht5S5tzzrxSLAqLMFDJcgwTsa4-Ap@elmer.db.elephantsql.com:5432/ypcharef
-// test postgres://mpbnqata:d7IBRjk5m8pVFGht0B7QFQfbpJK-kqX6@baasu.db.elephantsql.com:5432/mpbnqata
