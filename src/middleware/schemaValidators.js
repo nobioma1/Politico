@@ -20,3 +20,17 @@ export const officeValidator = (body) => {
 
   return Joi.validate(body, officeSchema, { abortEarly: false });
 };
+
+export const userValidator = (body) => {
+  const userSchema = Joi.object().keys({
+    firstName: Joi.string().required(),
+    otherNames: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().regex(/[^\w+@{2,3}$]/),
+    password: Joi.string().min(6).required(),
+    phoneNumber: Joi.string().required(),
+    passportURL: Joi.string().allow(''),
+    isAdmin: Joi.string().allow('').optional(),
+  });
+  return Joi.validate(body, userSchema, { abortEarly: false });
+};
