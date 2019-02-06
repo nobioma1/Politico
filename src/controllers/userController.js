@@ -1,9 +1,9 @@
 import db from '../db';
-import helper from './helper';
+import helpers from './helpers';
 import { userValidator } from '../middleware/schemaValidators';
 
-const UserController = {
-  async createUser(req, res) {
+class UserController {
+  static createUser(req, res) {
     const validate = userValidator(req.body);
     if (validate.error) {
       const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
@@ -17,7 +17,7 @@ const UserController = {
       firstName, otherNames, lastName, email, phoneNumber, passportURL, isAdmin,
     } = req.body;
 
-    const hashedPassword = helper.hashPassword(req.body.password);
+    const hashedPassword = helpers.hashPassword(req.body.password);
 
     const newUserQuery = `INSERT INTO
       users(firstName, otherNames, lastName, email, password, phoneNumber, passportURL, isAdmin, created_date)
@@ -28,8 +28,8 @@ const UserController = {
     ];
 
     try {
-      const { rows } = await db.query(newUserQuery, values);
-      const userToken = helper.generateToken(rows[0].id);
+      const { rows } = db.query(newUserQuery, values);
+      const userToken = helpers.generateToken(rows[0].id, rows[0].email);
       return res.status(201).send({
         status: 201,
         data: [{
@@ -49,7 +49,7 @@ const UserController = {
         error: 'Server Error, Please Try Again',
       });
     }
-  },
-};
+  }
+}
 
 export default UserController;
