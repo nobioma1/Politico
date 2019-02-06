@@ -77,7 +77,7 @@ class OfficeController {
 
   /**
    * Get's a single office, using the id of the office
-   * passed in the request
+   * passed in the request.
    * @static
    * @param {*} req
    * Request

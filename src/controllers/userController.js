@@ -65,7 +65,7 @@ class UserController {
   }
 
   /**
-   * To login a Registered User
+   * To login a Registered User.
    * @static
    * @param {*} req
    * Response

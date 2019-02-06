@@ -22,7 +22,7 @@ class PartyController {
       RETURNING *`;
     const values = [name.trim(), hqAddress.trim(), logoUrl.trim(), new Date()];
 
-    // validate the request from consumer
+    // validate the request from consumer.
     const validate = partyValidator(req.body);
     if (validate.error) {
       const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
