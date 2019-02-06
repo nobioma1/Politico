@@ -5,20 +5,13 @@ import tables from './schema';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.TEST_DATABASE_URL,
+  connectionString: process.env.NODE_ENV !== 'test' ? process.env.DATABASE_URL : process.env.TEST_DATABASE_URL,
 });
 
 pool.connect(() => {
-  pool.query(tables.partiesTable, (err) => {
-    if (err) {
-      return console.error('Error Executing Party Table', err.stack);
-    }
-  });
-  pool.query(tables.officesTable, (err) => {
-    if (err) {
-      return console.error('Error Executing Office Table', err.stack);
-    }
-  });
+  pool.query(tables.partiesTable);
+  pool.query(tables.officesTable);
+  pool.query(tables.usersTable);
 });
 
 export default {

@@ -14,6 +14,19 @@ const tables = {
       name VARCHAR(200) NOT NULL,
       created_date TIMESTAMP
     )`,
+  usersTable: `CREATE TABLE IF NOT EXISTS
+    users(
+      id SERIAL PRIMARY KEY,
+      firstName VARCHAR(100) NOT NULL, 
+      otherNames VARCHAR(100), 
+      lastName VARCHAR(100) NOT NULL, 
+      email VARCHAR(100) UNIQUE NOT NULL,
+      password VARCHAR(200) NOT NULL, 
+      phoneNumber VARCHAR(20) NOT NULL, 
+      passportURL VARCHAR(200), 
+      isAdmin BOOLEAN DEFAULT 'FALSE',
+      created_date TIMESTAMP
+    )`,
 };
 
 export default tables;
