@@ -41,7 +41,7 @@ class UserController {
     try {
       const { rows } = await db.query(newUserQuery, values);
       // generate user token used in verifying and authenticating the user
-      const userToken = helpers.generateToken(rows[0].id, rows[0].email, rows[0].isAdmin);
+      const userToken = helpers.generateToken(rows[0].user_id, rows[0].email, rows[0].isadmin);
       return res.status(201).send({
         status: 201,
         data: [{
@@ -90,8 +90,8 @@ class UserController {
       if (!comparePassword) {
         return res.status(400).send('error');
       }
-      // generates a token, using  id, email and user isAdmin
-      const userToken = helpers.generateToken(rows[0].id, rows[0].email, rows[0].isAdmin);
+      // generates a token, using id, email and user isAdmin that can be used to identify the user
+      const userToken = helpers.generateToken(rows[0].user_id, rows[0].email, rows[0].isadmin);
       return res.status(200).send({
         status: 200,
         data: [{

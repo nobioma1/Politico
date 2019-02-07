@@ -23,7 +23,7 @@ const auth = {
     }
     try {
       const decoded = await jwt.verify(token, process.env.SECRET);
-      const query = 'SELECT * FROM users WHERE id = $1 AND email = $2';
+      const query = 'SELECT * FROM users WHERE user_id = $1 AND email = $2';
       const { rows } = await db.query(query, [decoded.userId, decoded.userEmail]);
       if (!rows[0]) {
         return res.status(400).send({
@@ -31,15 +31,29 @@ const auth = {
           error: 'Invalid Token',
         });
       }
-      // passing a new variable on request we use to authorize user
-      req.user = { id: decoded.userId, email: decoded.userEmail, isAdmin: decoded.isAdminStatus };
       next();
     } catch (error) {
       return res.status(400).send({
         status: 400,
-        error: 'Server Error, Please Try Again',
+        error: 'Authentication Error',
       });
     }
+  },
+
+  /**
+* Decrypts the token to acess user authentication values passed
+* within the token.
+* @param {*} req
+* Request
+* @param {*} res
+* Response
+* @returns
+* the decoded information in the token
+*/
+  identifyAdmin(req) {
+    const token = req.headers['x-access-token'];
+    const decoded = jwt.verify(token, process.env.SECRET);
+    return decoded;
   },
 };
 

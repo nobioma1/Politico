@@ -34,3 +34,11 @@ export const userValidator = (body) => {
   });
   return Joi.validate(body, userSchema, { abortEarly: false });
 };
+
+export const candidateValidator = (body) => {
+  const userSchema = Joi.object().keys({
+    office_id: Joi.number(),
+    user_id: Joi.number(),
+  });
+  return Joi.validate(body, userSchema);
+};
