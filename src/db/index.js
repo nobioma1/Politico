@@ -14,6 +14,7 @@ pool.connect(() => {
   pool.query(tables.partiesTable);
   pool.query(tables.officesTable);
   pool.query(tables.usersTable);
+  pool.query(tables.candidatesTable);
 });
 
 export default {

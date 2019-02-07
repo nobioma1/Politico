@@ -17,10 +17,10 @@ class PartyController {
   static async createParty(req, res) {
     const { name, hqAddress, logoUrl } = req.body;
     const createQuery = `INSERT INTO 
-      parties(name, hqAddress, logoUrl, created_date)
-      VALUES ($1, $2, $3, $4)
+      parties(name, hqAddress, logoUrl)
+      VALUES ($1, $2, $3)
       RETURNING *`;
-    const values = [name.trim(), hqAddress.trim(), logoUrl.trim(), new Date()];
+    const values = [name.trim(), hqAddress.trim(), logoUrl.trim()];
 
     // validate the request from consumer.
     const validate = partyValidator(req.body);
@@ -94,7 +94,7 @@ class PartyController {
    * @memberof PartyController
    */
   static async getAParty(req, res) {
-    const getPartyQuery = 'SELECT * FROM  parties WHERE id = $1';
+    const getPartyQuery = 'SELECT * FROM  parties WHERE party_id = $1';
 
     try {
       const { rows } = await db.query(getPartyQuery, [req.params.id]);
@@ -129,10 +129,10 @@ class PartyController {
    * @memberof PartyController
    */
   static async editParty(req, res) {
-    const getPartyQuery = 'SELECT * FROM  parties WHERE id = $1';
+    const getPartyQuery = 'SELECT * FROM  parties WHERE party_id = $1';
     const editQuery = `UPDATE parties 
       SET name=$1, hqAddress=$2, logoURL=$3
-      WHERE id=$4 RETURNING *`;
+      WHERE party_id=$4 RETURNING *`;
 
     // validates the data sent by consumer
     const validate = partyValidator(req.body);
@@ -184,7 +184,7 @@ class PartyController {
    * @memberof PartyController
    */
   static async deleteParty(req, res) {
-    const deleteQuery = 'DELETE FROM parties WHERE id=$1 RETURNING *';
+    const deleteQuery = 'DELETE FROM parties WHERE party_id=$1 RETURNING *';
     try {
       const { rows } = await db.query(deleteQuery, [req.params.id]);
       if (!rows[0]) {

@@ -28,7 +28,7 @@ const helpers = {
  * @param {*} email
  * @param {*} adminStatus
  * @returns
- * t
+ * token
  */
   generateToken(id, email, adminStatus) {
     const token = jwt.sign({ userId: id, userEmail: email, isAdmin: adminStatus }, process.env.SECRET, { expiresIn: '24h' });

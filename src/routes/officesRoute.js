@@ -7,5 +7,7 @@ const officeRouter = Router();
 officeRouter.post('/', OfficeController.createOffice);
 officeRouter.get('/', OfficeController.getAllOffices);
 officeRouter.get('/:id', OfficeController.getAnOffice);
+officeRouter.get('/:id', OfficeController.getAnOffice);
+officeRouter.post('/:id/register', OfficeController.registerCandidate);
 
 export default officeRouter;
