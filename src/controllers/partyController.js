@@ -42,7 +42,7 @@ class PartyController {
       if (error.routine === '_bt_check_unique') {
         return res.status(400).send({
           status: 400,
-          error: `Party with '${req.body.name}' already exists`,
+          error: `Party with '${name.trim()}' already exists`,
         });
       }
       return res.status(500).send({
@@ -101,7 +101,7 @@ class PartyController {
       if (!rows[0]) {
         return res.status(404).send({
           status: 404,
-          data: [],
+          error: 'Party do not exist',
         });
       }
       return res.status(200).send({
@@ -148,7 +148,7 @@ class PartyController {
       if (!rows[0]) {
         return res.status(404).send({
           status: 404,
-          data: [],
+          data: 'Party does not exist',
         });
       }
       const { name, hqAddress, logoUrl } = req.body;
@@ -190,12 +190,12 @@ class PartyController {
       if (!rows[0]) {
         return res.status(404).send({
           status: 404,
-          data: [],
+          data: 'Party does not exitst',
         });
       }
       return res.status(200).send({
         status: 204,
-        data: [rows[0]],
+        data: 'Item deleted',
       });
     } catch (error) {
       return res.status(500).send({

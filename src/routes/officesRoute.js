@@ -9,5 +9,6 @@ officeRouter.get('/', OfficeController.getAllOffices);
 officeRouter.get('/:id', OfficeController.getAnOffice);
 officeRouter.get('/:id', OfficeController.getAnOffice);
 officeRouter.post('/:id/register', OfficeController.registerCandidate);
+officeRouter.get('/:id/result', OfficeController.getResult);
 
 export default officeRouter;

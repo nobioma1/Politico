@@ -10,14 +10,14 @@ const tables = {
     )`,
   officesTable: `CREATE TABLE IF NOT EXISTS
     offices(
-      office_id SERIAL PRIMARY KEY,
+      office_id SERIAL PRIMARY KEY UNIQUE,
       type VARCHAR(100) NOT NULL,
       name VARCHAR(200) NOT NULL,
       created_date TIMESTAMP DEFAULT NOW()
     )`,
   usersTable: `CREATE TABLE IF NOT EXISTS
     users(
-      user_id SERIAL PRIMARY KEY,
+      user_id SERIAL PRIMARY KEY UNIQUE,
       firstName VARCHAR(100) NOT NULL, 
       otherNames VARCHAR(100), 
       lastName VARCHAR(100) NOT NULL,
@@ -30,10 +30,20 @@ const tables = {
     )`,
   candidatesTable: `CREATE TABLE IF NOT EXISTS
     candidates(
-      office_id INTEGER NOT NULL,
-      user_id INTEGER NOT NULL,
+      candidate_id SERIAL UNIQUE, 
+      c_user INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+      office INTEGER NOT NULL REFERENCES offices(office_id) ON DELETE CASCADE,
       created_date TIMESTAMP DEFAULT NOW(), 
-      PRIMARY KEY(office_id, user_id)
+      PRIMARY KEY(candidate_id, office, c_user)
+    )`,
+  voteTable: `CREATE TABLE IF NOT EXISTS
+    votes(
+      vote_id SERIAL,
+      candidate INTEGER NOT NULL REFERENCES candidates(candidate_id) ON DELETE CASCADE,
+      office INTEGER NOT NULL REFERENCES offices(office_id)  ON DELETE CASCADE,
+      voter INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+      created_date TIMESTAMP DEFAULT NOW(), 
+      PRIMARY KEY (vote_id, office, voter)
     )`,
 };
 

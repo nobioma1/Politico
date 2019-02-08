@@ -1,6 +1,6 @@
 import db from '../db';
 import helpers from './helpers';
-import { userValidator } from '../middleware/schemaValidators';
+import { userValidator, loginValidator } from '../middleware/schemaValidators';
 
 class UserController {
   /**
@@ -27,16 +27,16 @@ class UserController {
     }
 
     const {
-      firstName, otherNames, lastName, email, phoneNumber, passportURL, isAdmin,
+      firstName, otherNames, lastName, email, phoneNumber, passportURL,
     } = req.body;
 
     // hash password to be dsaved on the database
     const hashedPassword = helpers.hashPassword(req.body.password);
 
     const newUserQuery = `INSERT INTO
-      users(firstName, otherNames, lastName, email, password, phoneNumber, passportURL, isAdmin)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-    const values = [firstName, otherNames, lastName, email, hashedPassword, phoneNumber, passportURL, isAdmin];
+      users(firstName, otherNames, lastName, email, password, phoneNumber, passportURL)
+      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING firstName, otherNames, lastName, email, phoneNumber, passportURL`;
+    const values = [firstName.trim(), otherNames.trim(), lastName.trim(), email, hashedPassword, phoneNumber.trim(), passportURL.trim()];
 
     try {
       const { rows } = await db.query(newUserQuery, values);
@@ -54,12 +54,12 @@ class UserController {
       if (error.routine === '_bt_check_unique') {
         return res.status(400).send({
           status: 400,
-          error: `Party with '${req.body.email}' already exists`,
+          error: `User with '${req.body.email}' already exists`,
         });
       }
       return res.status(500).send({
         status: 500,
-        error: 'Unable to Create Party!! Server Error, Try Again',
+        error: error.message,
       });
     }
   }
@@ -78,6 +78,16 @@ class UserController {
    */
   static async loginUser(req, res) {
     const query = 'SELECT * FROM users WHERE email = $1';
+
+    const validate = loginValidator(req.body);
+    if (validate.error) {
+      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+      return res.status(422).json({
+        status: 422,
+        error: errorMessage,
+      });
+    }
+
     try {
       const { rows } = await db.query(query, [req.body.email]);
       if (!rows[0]) {
@@ -92,17 +102,29 @@ class UserController {
       }
       // generates a token, using id, email and user isAdmin that can be used to identify the user
       const userToken = helpers.generateToken(rows[0].user_id, rows[0].email, rows[0].isadmin);
+
       return res.status(200).send({
         status: 200,
-        data: [{
-          token: userToken,
-          user: rows[0],
-        }],
+        data: [
+          {
+            token: userToken,
+            user: {
+              user_id: rows[0].user_id,
+              firstname: rows[0].firstname,
+              othernames: rows[0].othernames,
+              lastname: rows[0].lastname,
+              email: rows[0].email,
+              phonenumber: rows[0].phonenumber,
+              passporturl: rows[0].passporturl,
+              created_date: rows[0].created_date,
+            }
+          }
+        ]
       });
     } catch (error) {
-      return res.status(400).send({
+      return res.status(500).send({
         status: 500,
-        error: 'Server Error, Please Try Again',
+        error: error.message,
       });
     }
   }

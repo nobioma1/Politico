@@ -35,7 +35,7 @@ const auth = {
     } catch (error) {
       return res.status(400).send({
         status: 400,
-        error: 'Authentication Error',
+        error: error.message,
       });
     }
   },
@@ -50,7 +50,7 @@ const auth = {
 * @returns
 * the decoded information in the token
 */
-  identifyAdmin(req) {
+  tokenBearer(req) {
     const token = req.headers['x-access-token'];
     const decoded = jwt.verify(token, process.env.SECRET);
     return decoded;

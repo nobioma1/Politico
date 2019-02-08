@@ -4,7 +4,7 @@
   "description": "A Web Application API v1",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test&& mocha --require babel-register tests/*.js --exit",
+    "test": "cross-env NODE_ENV=test&& mocha --require babel-register tests/*.js --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --exec babel-node --presets babel-preset-env ./index.js"
   },
@@ -16,6 +16,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.15.0",
@@ -33,6 +34,7 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
-    "pg": "^7.8.0"
+    "pg": "^7.8.0",
+    "supertest": "^3.4.2"
   }
 }

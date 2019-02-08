@@ -95,7 +95,7 @@ class OfficeController {
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
-          data: [],
+          data: 'Office not found',
         });
       }
       return res.status(200).json({
@@ -125,10 +125,10 @@ class OfficeController {
   */
   static async registerCandidate(req, res) {
     // Gets the passed in the token generated on authentication
-    const user = auth.identifyAdmin(req);
+    const user = auth.tokenBearer(req);
     if (user.isAdmin === true) {
       const allOfficesQuery = 'SELECT * FROM offices';
-      const createCandidateQuery = 'INSERT INTO candidates (office_id, user_id) VALUES ($1, $2) RETURNING *';
+      const createCandidateQuery = 'INSERT INTO candidates (office, c_user) VALUES ($1, $2) RETURNING *';
       try {
         const allOffices = await db.query(allOfficesQuery);
 
@@ -140,28 +140,18 @@ class OfficeController {
           });
         }
 
-        // Validates request from consumer
-        const validate = candidateValidator(req.body);
-        if (validate.error) {
-          const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-          return res.status(422).json({
-            status: 422,
-            error: errorMessage,
-          });
-        }
-
-        const { rows } = await db.query(createCandidateQuery, [req.body.office_id, req.body.user_id]);
+        const { rows } = await db.query(createCandidateQuery, [req.body.office_id, req.body.candidate_id]);
         return res.status(201).json({
           status: 201,
           data: {
-            office: rows[0].office_id,
-            user: rows[0].user_id,
+            office: rows[0].office,
+            user: rows[0].c_user,
           },
         });
       } catch (error) {
-        return res.status(409).json({
-          status: 409,
-          error: 'Already Exists',
+        return res.status(400).json({
+          status: 400,
+          error: error.message,
         });
       }
     }
@@ -169,6 +159,27 @@ class OfficeController {
       status: 401,
       error: 'Unauthorized',
     });
+  }
+
+  static async getResult(req, res) {
+    const getResultQuery =
+      'SELECT office, candidate, COUNT(candidate) FROM votes WHERE office = $1 GROUP BY candidate, office';
+    try {
+      const { rows } = await db.query(getResultQuery, [req.params.id]);
+      return res.status(200).json({
+        status: 200,
+        data: [{
+          office: rows[0].office,
+          candidate: rows[0].candidate,
+          result: rows[0].count,
+        }],
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
   }
 }
 

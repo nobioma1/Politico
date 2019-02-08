@@ -4,8 +4,8 @@ const Joi = require('joi');
 
 export const partyValidator = (body) => {
   const partySchema = Joi.object().keys({
-    name: Joi.string().required(),
-    hqAddress: Joi.string().required(),
+    name: Joi.string().min(6).required(),
+    hqAddress: Joi.string().min(10).max(100).required(),
     logoUrl: Joi.string().allow(''),
   });
 
@@ -26,19 +26,34 @@ export const userValidator = (body) => {
     firstName: Joi.string().required(),
     otherNames: Joi.string().required(),
     lastName: Joi.string().required(),
-    email: Joi.string().regex(/[^\w+@{2,3}$]/),
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().min(6).required(),
     phoneNumber: Joi.string().required(),
     passportURL: Joi.string().allow(''),
-    isAdmin: Joi.string().allow('').optional(),
   });
   return Joi.validate(body, userSchema, { abortEarly: false });
 };
 
 export const candidateValidator = (body) => {
-  const userSchema = Joi.object().keys({
+  const candidateSchema = Joi.object().keys({
     office_id: Joi.number(),
     user_id: Joi.number(),
   });
-  return Joi.validate(body, userSchema);
+  return Joi.validate(body, candidateSchema);
+};
+
+export const voteValidator = (body) => {
+  const voteSchema = Joi.object().keys({
+    office: Joi.number(),
+    candidate: Joi.number(),
+  });
+  return Joi.validate(body, voteSchema);
+};
+
+export const loginValidator = (body) => {
+  const loginSchema = Joi.object().keys({
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().required(),
+  });
+  return Joi.validate(body, loginSchema);
 };
