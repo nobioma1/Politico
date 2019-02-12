@@ -40,6 +40,13 @@
 
         <hr>
         <li>
+          <a href="#" onclick="modal('make_candidate')">
+            Add a Candidate
+          </a>
+        </li>
+        
+        <hr>
+        <li>
           <a href="#" onclick="">
             Logout
           </a>
@@ -62,6 +69,7 @@
   </header>
 
   <section>
+    <!-- cards ------------------------------------------------------------>
     <div class="row">
       <div class="column">
         <div class="square-card">
@@ -70,8 +78,8 @@
             <h4><b>Party One </b></h4>
             <p>(P.O)</p>
 
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>          
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>          
           </div>
         </div> 
       </div>
@@ -83,8 +91,8 @@
             <h4><b>Party Two </b></h4>
             <p>(P.T)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
@@ -96,8 +104,8 @@
             <h4><b>Party Three </b></h4>
             <p>(P.TH)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
@@ -109,8 +117,8 @@
             <h4><b>Party Four </b></h4>
             <p>(P.F)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
@@ -122,8 +130,8 @@
             <h4><b>Party Five </b></h4>
             <p>(P.Fi)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
@@ -135,8 +143,8 @@
             <h4><b>Party Six </b></h4>
             <p>(P.S)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
@@ -148,94 +156,120 @@
             <h4><b>Party Seven </b></h4>
             <p>(P.SE)</p>
       
-            <button class="cardbtn-edit" onclick="modal('edit_party')">Edit</button>
-            <button class="cardbtn-delete" onclick="modal('confirm_delete')">Delete</button>
+            <button class="cardbtn" onclick="modal('edit_party')">Edit</button>
+            <button class="cardbtn" onclick="modal('confirm_delete')">Delete</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+</section>
 
-  <!-- Modals -->
-  <div id="create_party" class="modal">
-    <form class="modal-content" action="#">
-      <div class="container">
-        <h3>Create New Political Party</h3>
-        <p>Please fill this form to create new political party</p>
-        <hr>
-        <label for="party_name"><strong>Party name</strong></label>
-        <input type="text" name="office_title" placeholder="New Party Name" required>
+<!-- Modals -->
+<div id="create_party" class="modal">
+  <form class="modal-content" action="#">
+    <div class="container">
+      <h3>Create New Political Party</h3>
+      <p>Please fill this form to create new political party</p>
+      <hr>
+      <label for="party_name"><strong>Party name</strong></label>
+      <input type="text" name="office_title" placeholder="New Party Name" required>
 
-        <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
-        <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+      <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+      <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
 
-        <label for="party_logo"><strong>Official Logo</strong></label>
-        <input type="file" name="party-logo" accept="image/*" required>
+      <label for="party_logo"><strong>Official Logo</strong></label>
+      <input type="file" name="party-logo" accept="image/*" required>
 
-        <div class="modalbtn-section">
-          <button type="button" onclick="modal('create_party')" class="modalbtn cancel-btn">Cancel</button>
-          <button type="submit" class="modalbtn success-btn">Create</button>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div id="edit_party" class="modal">
-    <form class="modal-content" action="#">
-      <div class="container">
-        <h3>Edit Political Party</h3>
-        <hr>
-        <label for="party_name"><strong>Party name</strong></label>
-        <input type="text" name="office_title" placeholder="New Party Name" required>
-  
-        <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
-        <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
-  
-        <label for="party_logo"><strong>Official Logo</strong></label>
-        <input type="file" name="party-logo" accept="image/*" required>
-  
-        <div class="modalbtn-section">
-          <button type="button" onclick="modal('edit_party')" class="modalbtn cancel-btn">Cancel</button>
-          <button type="submit" class="modalbtn success-btn">Update</button>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div id="confirm_delete" class="modal">
-    <div class="modal-content">
-      <div class="warning-container">
-  
-        <p>Are you sure you want to delete party?</p>
-  
-        <div class="modalbtn-section">
-          <button type="button" onclick="modal('confirm_delete')" class="modalbtn cancel-btn">Cancel</button>
-          <button type="submit" class="modalbtn success-btn">Delete</button>
-        </div>
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('create_party')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Create</button>
       </div>
     </div>
-  </div>
+  </form>
+</div>
 
-  <div id="create_office" class="modal">
-    <form class="modal-content" action="#">
-      <div class="container">
-        <h3>Create New Government Office</h3>
-        <p>Please fill this form to create new Government office</p>
-        <hr>
-        <label for="office_title"><strong>Office Title</strong></label>
-        <input type="text" placeholder="New Office Title" name="office_title" required>
-  
-        <label for="description"><strong>Office Type</strong></label>
-        <input type="textarea" placeholder="federal/ legislative/ state/ local government" name="description" required>
-  
-        <div class="modalbtn-section">
-          <button type="button" onclick="modal('create_office')" class="modalbtn cancel-btn">Cancel</button>
-          <button type="submit" class="modalbtn success-btn">Create</button>
-        </div>
+<div id="edit_party" class="modal">
+  <form class="modal-content" action="#">
+    <div class="container">
+      <h3>Edit Political Party</h3>
+      <hr>
+      <label for="party_name"><strong>Party name</strong></label>
+      <input type="text" name="office_title" placeholder="New Party Name" required>
+
+      <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+      <input type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+
+      <label for="party_logo"><strong>Official Logo</strong></label>
+      <input type="file" name="party-logo" accept="image/*" required>
+
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('edit_party')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Update</button>
       </div>
-    </form>
-  </div>
-  
-  <script type="text/javascript" src="../scripts/main.js"></script>  
+    </div>
+  </form>
+</div>
+
+<div id="create_office" class="modal">
+  <form class="modal-content" action="#">
+    <div class="container">
+      <h3>Create New Government Office</h3>
+      <p>Please fill this form to create new Government office</p>
+      <hr>
+      <label for="office_title"><strong>Office Title</strong></label>
+      <input type="text" placeholder="New Office Title" name="office_title" required>
+
+      <label for="description"><strong>Office Type</strong></label>
+      <input type="textarea" placeholder="federal/ legislative/ state/ local government" name="description" required>
+
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('create_office')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div id="make_candidate" class="modal">
+  <form class="modal-content" action="#">
+    <div class="container">
+      <label for="choose_office"><strong>Choose Office </strong></label>
+      <select required>
+        <option value="1">Office 1</option>
+        <option value="2">Office 2</option>
+        <option value="3">Office 3</option>
+      </select>
+
+      <label for="choose_party"><strong>Select Candidate</strong></label>
+      <select required>
+        <option value="1">Candidate 1</option>
+        <option value="2">Candidate 2</option>
+        <option value="3">Candidate 3</option>
+      </select>
+    
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('make_candidate')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="confirm_delete" class="modal">
+  <div class="modal-content">
+    <div class="warning-container">
+
+      <p>Are you sure you want to delete party?</p>
+
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('confirm_delete')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript" src="../scripts/main.js"></script>  
 </body>
 </html>
