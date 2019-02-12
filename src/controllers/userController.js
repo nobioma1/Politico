@@ -35,7 +35,7 @@ class UserController {
 
     const newUserQuery = `INSERT INTO
       users(firstName, otherNames, lastName, email, password, phoneNumber, passportURL)
-      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING firstName, otherNames, lastName, email, phoneNumber, passportURL`;
+      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id, firstName, otherNames, lastName, email, phoneNumber, passportURL, isadmin`;
     const values = [firstName.trim(), otherNames.trim(), lastName.trim(), email, hashedPassword, phoneNumber.trim(), passportURL.trim()];
 
     try {

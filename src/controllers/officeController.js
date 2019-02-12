@@ -12,36 +12,44 @@ class OfficeController {
    * // Response
    * @returns
    * // An Object containing status code and the new data if useful
-   * //else an error code is returned with description of error
+   * // else an error code is returned with description of error
    * @memberof OfficeController
    */
   static async createOffice(req, res) {
-    const { type, name } = req.body;
-    const createQuery = 'INSERT INTO offices (type, name) VALUES ($1, $2) RETURNING *';
-    const values = [type, name];
+    // Gets the passed in the token generated on authentication
+    const user = auth.tokenBearer(req);
+    if (user.isAdmin === true) {
+      const { type, name } = req.body;
+      const createQuery = 'INSERT INTO offices (type, name) VALUES ($1, $2) RETURNING *';
+      const values = [type, name];
 
-    // Validates request from consumer
-    const validate = officeValidator(req.body);
-    if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-      return res.status(422).json({
-        status: 422,
-        error: errorMessage,
-      });
-    }
+      // Validates request from consumer
+      const validate = officeValidator(req.body);
+      if (validate.error) {
+        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+        return res.status(422).json({
+          status: 422,
+          error: errorMessage,
+        });
+      }
 
-    try {
-      const { rows } = await db.query(createQuery, values);
-      return res.status(201).json({
-        status: 201,
-        data: [rows[0]],
-      });
-    } catch (error) {
-      return res.status(500).json({
-        status: 500,
-        error: 'Unable to Create Office!! Server Error, Try Again',
-      });
+      try {
+        const { rows } = await db.query(createQuery, values);
+        return res.status(201).json({
+          status: 201,
+          data: [rows[0]],
+        });
+      } catch (error) {
+        return res.status(500).json({
+          status: 500,
+          error: 'Unable to Create Office!! Server Error, Try Again',
+        });
+      }
     }
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized',
+    });
   }
 
   /**
@@ -127,16 +135,14 @@ class OfficeController {
     // Gets the passed in the token generated on authentication
     const user = auth.tokenBearer(req);
     if (user.isAdmin === true) {
-      const allOfficesQuery = 'SELECT * FROM offices';
-      const createCandidateQuery = 'INSERT INTO candidates (office, c_user) VALUES ($1, $2) RETURNING *';
+      const allCandidatesQuery = 'SELECT * FROM candidates WHERE candidate_user=$1';
+      const createCandidateQuery = 'INSERT INTO candidates (office, candidate_user) VALUES ($1, $2) RETURNING *';
       try {
-        const allOffices = await db.query(allOfficesQuery);
-
-        // checks count of  offices and returns a No office information for user
-        if (allOffices.rowCount === 0) {
-          return res.status(200).json({
-            status: 200,
-            data: 'No Office to select',
+        const candidates = await db.query(allCandidatesQuery, [req.body.candidate_id]);
+        if (candidates.rows[0]) {
+          return res.status(400).json({
+            status: 400,
+            error: 'Already been made candidate',
           });
         }
 
@@ -145,7 +151,7 @@ class OfficeController {
           status: 201,
           data: {
             office: rows[0].office,
-            user: rows[0].c_user,
+            user: rows[0].candidate_user,
           },
         });
       } catch (error) {
@@ -162,8 +168,7 @@ class OfficeController {
   }
 
   static async getResult(req, res) {
-    const getResultQuery =
-      'SELECT office, candidate, COUNT(candidate) FROM votes WHERE office = $1 GROUP BY candidate, office';
+    const getResultQuery = 'SELECT office, candidate, COUNT(candidate) FROM votes WHERE office = $1 GROUP BY candidate, office';
     try {
       const { rows } = await db.query(getResultQuery, [req.params.id]);
       return res.status(200).json({
