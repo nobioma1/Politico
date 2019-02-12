@@ -31,10 +31,10 @@ const tables = {
   candidatesTable: `CREATE TABLE IF NOT EXISTS
     candidates(
       candidate_id SERIAL UNIQUE, 
-      c_user INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+      candidate_user INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
       office INTEGER NOT NULL REFERENCES offices(office_id) ON DELETE CASCADE,
       created_date TIMESTAMP DEFAULT NOW(), 
-      PRIMARY KEY(candidate_id, office, c_user)
+      PRIMARY KEY(candidate_id, office, candidate_user)
     )`,
   voteTable: `CREATE TABLE IF NOT EXISTS
     votes(
