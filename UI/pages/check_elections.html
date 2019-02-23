@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Parties | Politico</title>
+  <title>Concluded Elections | Politico</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -12,11 +12,13 @@
 
   <link rel="stylesheet" href="../styles/dashboard.css">
 
+  <!-- <link rel="stylesheet" href="../styles/master.css"> -->
+
 </head>
 
 <body>
   <aside>
-    <a href="../pages/user.html">
+    <a href="user.html">
       <h1>POLITICO</h1>
     </a>
 
@@ -25,36 +27,37 @@
     <nav id="nav">
       <ul>
         <li><a href="user.html">&#x2302; Dashboard</a></li>
-
+    
         <li id="ul-section">&#x29BF; Actions</li>
-        <li class="active">
+        <li>
           <a href="all_parties.html">
             View All Political Parties
           </a>
         </li>
-
+    
         <hr>
-        <li>
-          <a href="check_elections.html">
+        <li class="active">
+          <a href="concluded_elections.html">
             Check Election Result
           </a>
         </li>
-
+    
         <hr>
         <li>
           <a href="elections_voted.html">
             Elections You Voted
           </a>
         </li>
-
+    
         <hr>
         <li>
-          <a href="#" onclick="logout()">
+          <a href="#" onclick="">
             Logout
           </a>
         </li>
       </ul>
     </nav>
+
 
   </aside>
 
@@ -67,16 +70,28 @@
       </div>
     </div>
 
-    <h3>&#x29BF Political Parties</h3>
+    <h3> &#x29BF; Check Election Results</h3>
   </header>
-
   <section>
-    <div id="party" class="row">
-   
+
+    <div id="office">
+    
     </div>
+
   </section>
+
+  <div id="result" class="modal">
+    <div class="modal-content">
+      <button type="button" onclick="modal('result')" id="close-btn">X</button>
+      <div id="resultRow">
+        
+      </div>
+    </div>
+  </div>
+
   <script type="text/javascript" src="../scripts/main.js"></script>
-  <script type="text/javascript" src="../scripts/allParties.js"></script>  
+  <script type="text/javascript" src="../scripts/checkElections.js"></script>  
+
 </body>
 
 </html>

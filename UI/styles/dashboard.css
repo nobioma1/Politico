@@ -162,6 +162,7 @@ section a{
 
 .card{
   background-color: #F7F7F7;
+  width: inherit;
   margin-top: 20px;
   padding-left: 5px;
   border-left: 2px solid #2b99ff;
@@ -174,6 +175,7 @@ section a{
   border-top: 2px solid #2b99ff;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .card img{
@@ -277,6 +279,7 @@ section a{
   border: 1px solid #888; 
   width: 80%;
   border-radius: 5px;
+  padding: 10px;
 }
 
 .container {
@@ -443,6 +446,35 @@ select{
   background-color: #f1f1f1;
 }
 
+#resultRow {
+  padding: 5px;
+}
+
+#close-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.result-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: inherit;
+  margin: 5px;
+  padding: 16px;
+  background-color: #f1f1f1;
+}
+
+.result-card span {
+  float: right;
+  font-weight: 200;
+}
+
+.result-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 @media (max-width: 825px) {
   h2{
     font-size:2em;
@@ -518,7 +550,7 @@ select{
     margin-right: 5%;
     padding-top:50px;
   }
-}
+} 
 
 @media screen and (max-height: 375px) {
   .details img{
@@ -542,6 +574,19 @@ select{
     width: 75%;
     margin-top: 10%;
   }
+
+  .card-right{
+    width: 30%;
+  }
+
+  .card-right .title{
+    font-size: 1rem;
+  }
+
+  .card-button button {
+    padding: 2px;
+    height: 20px;
+ }
 }
 
 @media screen and (min-width: 480px) {
@@ -563,11 +608,5 @@ select{
 
   .square-card button{
     padding: 5px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .card{
-    width: 90%;
   }
 }

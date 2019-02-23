@@ -11,11 +11,10 @@
   <link rel="icon" href="favicon.png" type="image/x-icon">
 
   <link rel="stylesheet" href="styles/master.css">
-
-  <script type="text/javascript" src="scripts/main.js"></script>
+  <link rel="stylesheet" href="styles/popup.css">
 </head>
 
-<body>
+<body onload="redirect()">
   <header>
     <a class="logo"href="index.html">
       Politico
@@ -24,15 +23,16 @@
     <a class="header-btn" href="pages/signup.html">
       Create Account
     </a>
+    <div class="hidden" id='err_output'></div>
   </header>
-
   <main>
     <div class="login-card">
-      <h1>Log-in</h1><br>
-      <form action="">
-        <input type="email" name="user" placeholder="Email Address">
-        <input type="password" name="pass" placeholder="Password">
-        <input type="submit" name="login" class="btn-submit success" value="login">
+      <h1>Welcome <br> Log-in</h1><br>
+      <div id="output"></div>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <input type="submit" class="btn-submit success" value="login">
       </form>
 
       <div class="login-mini-link">
@@ -40,6 +40,8 @@
       </div>
     </div>
   </main>
+  <script src="./scripts/popup.js"></script>
+  <script src="./scripts/login.js"></script>
 </body>
 
 </html>
