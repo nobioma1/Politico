@@ -34,9 +34,9 @@ async function loginUser(event) {
         }%${expires}%path=/`;
         // Redirects User depending in role
         if (data.data[0].user.isAdmin === true) {
-          window.location = "Politico/pages/admin.html";
+          window.location = "/pages/admin.html";
         } else {
-          window.location = "Politico/pages/user.html";
+          window.location = "/pages/user.html";
         }
       }
     })
@@ -51,9 +51,9 @@ function redirect() {
   if (ca[0] !== '') {
     const status = ca[2];
     if (status === true) {
-      window.location = 'Politico/pages/admin.html';
+      window.location = '/pages/admin.html';
     } else {
-      window.location = 'Politico/pages/user.html';
+      window.location = '/pages/user.html';
     }
   }
 }
