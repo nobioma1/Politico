@@ -44,9 +44,9 @@ function redirect() {
   if (ca[0] !== '') {
     const status = ca[2];
     if (status === true) {
-      window.location = '/pages/admin.html';
+      window.location = 'Politico/pages/admin.html';
     } else {
-      window.location = '/pages/user.html';
+      window.location = 'Politico/pages/user.html';
     }
   }
 }
