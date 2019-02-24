@@ -43,6 +43,6 @@ function getCookie(cookieName) {
 const user = getCookie('poliJwtNmsStusUsr');
 
 function logout() {
-  document.cookie = 'poliJwtNmsStusUsr=; expires=Mon, 01 Jan 1900 00:00:00 UTC; path=/;';
+  document.cookie = 'poliJwtNmsStusUsr=; expires=Mon, 01 Jan 1900 00:00:00 UTC; path=/Politico;';
   getCookie();
 }
