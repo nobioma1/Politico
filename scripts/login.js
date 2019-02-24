@@ -47,9 +47,9 @@ function redirect() {
   if (ca[0] !== '') {
     const status = ca[2];
     if (status === true) {
-      window.location = '/pages/admin.html';
+      window.location = `${document.location.host}/pages/admin.html`;
     } else {
-      window.location = '/pages/user.html';
+      window.location = `${document.location.host}/pages/user.html`;
     }
   }
 }
