@@ -25,8 +25,7 @@ const modal = (id) => {
   }
 };
 
-function getCookie(cookieName) {
-  const name = `${cookieName}=`;
+function getCookie() {
   const ca = document.cookie.split('%');
   if (ca[0] !== '') {
     const storedData = {
@@ -40,7 +39,7 @@ function getCookie(cookieName) {
   document.location.replace('/Politico');
 }
 
-const user = getCookie('poliJwtNmsStusUsr');
+const user = getCookie();
 
 function logout() {
   document.cookie = 'poliJwtNmsStusUsr=; expires=Mon, 01 Jan 1900 00:00:00 UTC; path=/Politico;';
