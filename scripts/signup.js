@@ -29,7 +29,7 @@ async function addNewUser(event) {
           <h1>Welcome</h1>
           <hr>
         </div>
-        <p>Account Created, Click <a href="/index.html">Login</a></p>`;
+        <p>Account Created, Click <a href="Politico/index.html">Login</a></p>`;
       }
     })
     .catch(error => {
