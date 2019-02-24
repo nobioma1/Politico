@@ -37,12 +37,12 @@ function getCookie(cookieName) {
     };
     return storedData;
   }
-  document.location = '/Politico';
+  document.location.replace('/Politico');
 }
 
 const user = getCookie('poliJwtNmsStusUsr');
 
 function logout() {
   document.cookie = 'poliJwtNmsStusUsr=; expires=Mon, 01 Jan 1900 00:00:00 UTC; path=/;';
-  document.location.href = '/Politico';
+  document.location.replace('/Politico');
 }
