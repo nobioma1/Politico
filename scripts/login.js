@@ -33,11 +33,7 @@ async function loginUser(event) {
           current.user.user_id
         }%${expires}%path=/`;
         // Redirects User depending in role
-        if (data.data[0].user.isAdmin === true) {
-          window.location = "/pages/admin.html";
-        } else {
-          window.location = "/pages/user.html";
-        }
+        redirect()
       }
     })
     .catch(error => {
