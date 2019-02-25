@@ -31,9 +31,13 @@ async function loginUser(event) {
           current.user.firstname
         } ${current.user.lastname}%${current.user.isAdmin}%${
           current.user.user_id
-        }%${expires}%path=/`;
+        }%${expires}%path=/Politico`;
         // Redirects User depending in role
-        redirect()
+        if (current.user.isAdmin === true) {
+          window.location.replace('/Politico/pages/admin.html');
+        } else {
+          window.location.replace('/Politico/pages/user.html');
+        }
       }
     })
     .catch(error => {
