@@ -31,20 +31,28 @@ const tables = {
   candidatesTable: `CREATE TABLE IF NOT EXISTS
     candidates(
       candidate_id SERIAL UNIQUE, 
-      candidate_user INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-      office INTEGER NOT NULL REFERENCES offices(office_id) ON DELETE CASCADE,
+      candidate_user INTEGER NOT NULL REFERENCES users(user_id),
+      office INTEGER NOT NULL REFERENCES offices(office_id),
+      candidate_name VARCHAR(250) NOT NULL,
       created_date TIMESTAMP DEFAULT NOW(), 
       PRIMARY KEY(candidate_id, office, candidate_user)
     )`,
   voteTable: `CREATE TABLE IF NOT EXISTS
     votes(
       vote_id SERIAL,
-      candidate INTEGER NOT NULL REFERENCES candidates(candidate_id) ON DELETE CASCADE,
-      office INTEGER NOT NULL REFERENCES offices(office_id)  ON DELETE CASCADE,
-      voter INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+      candidate INTEGER NOT NULL REFERENCES candidates(candidate_id),
+      office INTEGER NOT NULL REFERENCES offices(office_id),
+      voter INTEGER NOT NULL REFERENCES users(user_id),
       created_date TIMESTAMP DEFAULT NOW(), 
       PRIMARY KEY (vote_id, office, voter)
     )`,
+  droptables: `
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS parties CASCADE;
+    DROP TABLE IF EXISTS offices CASCADE;
+    DROP TABLE IF EXISTS candidates CASCADE;
+    DROP TABLE IF EXISTS votes CASCADE;
+  `,
 };
 
 export default tables;

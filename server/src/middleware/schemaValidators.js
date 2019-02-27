@@ -24,11 +24,11 @@ export const officeValidator = (body) => {
 export const userValidator = (body) => {
   const userSchema = Joi.object().keys({
     firstName: Joi.string().required(),
-    otherNames: Joi.string().required(),
+    otherNames: Joi.string().optional(),
     lastName: Joi.string().required(),
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().min(6).required(),
-    phoneNumber: Joi.string().required(),
+    phoneNumber: Joi.number().required(),
     passportURL: Joi.string().allow(''),
   });
   return Joi.validate(body, userSchema, { abortEarly: false });
