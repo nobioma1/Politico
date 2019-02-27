@@ -4,20 +4,17 @@ import auth from '../middleware/auth';
 
 class PartyController {
   /**
-   * Creates a new party
    * @static
-   * @param {*} req
-   * Request
-   * @param {*} res
-   * Response
-   * @returns
-   * An Object containing status code and the new office if successful
-   * else an error code is returned with description of error
+   * @param {*} req request, contains name, hqAddress, logoUrl
+   * @param {*} res response, sends object of newly created party
+   *
+   * - Creates a new party
    * @memberof PartyController
    */
   static async createParty(req, res) {
     // Gets the passed in the token generated on authentication
     const user = auth.tokenBearer(req);
+    // check the status of user ADMIN or USER
     if (user.isAdmin === true) {
       const { name, hqAddress, logoUrl } = req.body;
       const createQuery = `INSERT INTO parties(name, hqAddress, logoUrl)
@@ -27,7 +24,7 @@ class PartyController {
       // validate the request from consumer.
       const validate = partyValidator(req.body);
       if (validate.error) {
-        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
         return res.status(422).json({
           status: 422,
           error: errorMessage,
@@ -60,19 +57,15 @@ class PartyController {
   }
 
   /**
-   * Gets all parties
    * @static
    * @param {*} req
-   * Request
-   * @param {*} res
-   * Response
-   * @returns
-   * An Object containing status code and all parties if successful
-   * else an error code is returned with description of error
+   * @param {*} res response, sends an object of all existing parties
+   *
+   * - Gets all existing Parties
    * @memberof PartyController
    */
   static async getAllParties(req, res) {
-    const allPartiesQuery = 'SELECT * FROM parties';
+    const allPartiesQuery = 'SELECT * FROM parties ORDER BY created_date DESC';
 
     try {
       const { rows } = await db.query(allPartiesQuery);
@@ -89,15 +82,11 @@ class PartyController {
   }
 
   /**
-   * Get a particular party
    * @static
-   * @param {*} req
-   * Request
-   * @param {*} res
-   * Response
-   * @returns
-   * An Object containing status code and the a particular party if successful
-   * else an error code is returned with description of error
+   * @param {*} req request, contains params partyId
+   * @param {*} res response, sends object of particular party
+   *
+   * - Gets a Particular Party
    * @memberof PartyController
    */
   static async getAParty(req, res) {
@@ -124,15 +113,11 @@ class PartyController {
   }
 
   /**
-   * Edit a party
    * @static
-   * @param {*} req
-   * Request
-   * @param {*} res
-   * Response
-   * @returns
-   * An Object containing status code and a party if successful
-   * else an error code is returned with description of error
+   * @param {*} req request, contains name, hqAddress, logoUrl
+   * @param {*} res response, sends object of updated party
+   *
+   * - Updates the details of an exisiting party
    * @memberof PartyController
    */
   static async editParty(req, res) {
@@ -144,10 +129,10 @@ class PartyController {
       SET name=$1, hqAddress=$2, logoURL=$3
       WHERE party_id=$4 RETURNING *`;
 
-      // validates the data sent by consumer
+      // validates the params
       const validate = partyValidator(req.body);
       if (validate.error) {
-        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
+        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
         return res.status(422).json({
           status: 422,
           error: errorMessage,
@@ -187,15 +172,11 @@ class PartyController {
   }
 
   /**
-   * Delete a particular party given the id of the pary
    * @static
-   * @param {*} req
-   * Request
-   * @param {*} res
-   * Response
-   * @returns
-   * An Object containing status code and deleted party if successful
-   * else an error code is returned with description of error
+   * @param {*} req request, contains id of party to be deleted
+   * @param {*} res response, party deleted
+   *
+   * - Deletes an exisiting party
    * @memberof PartyController
    */
   static async deleteParty(req, res) {
@@ -208,10 +189,10 @@ class PartyController {
         if (!rows[0]) {
           return res.status(404).send({
             status: 404,
-            data: 'Party does not exitst',
+            data: 'Party does not exist',
           });
         }
-        return res.status(200).send({
+        return res.status(204).send({
           status: 204,
           data: 'Item deleted',
         });
