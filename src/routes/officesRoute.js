@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import OfficeController from '../controllers/OfficeController';
+import OfficeController from '../controllers/officeController';
 
 const officeRouter = Router();
 
