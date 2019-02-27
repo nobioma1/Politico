@@ -1,7 +1,5 @@
 language: node_js
-before_install: 
-  - cd server
 node_js:
-  - "stable"
+  - "7"
 after_success:
   - npm run coveralls

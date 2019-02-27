@@ -1,3 +1,0 @@
-# Politico
-Web Project
-
