@@ -34,14 +34,27 @@ To run tests on api
 * [Javascript](http://es6-features.org/) 
 * [Express](https://expressjs.com/) - The web framework used
 
-First Header | Second Header
------------- | -------------
-Content from cell 1 | Content from cell 2
-Content in the first column | Content in the second column
+HTTP VERB | URI PATH | DESCRIPTION
+------------ | ------------- | -------------
+POST | /api/v1/auth/signup | User can create account 
+POST | /api/v1/auth/login | User can login
+POST | /api/v1/parties | Admin can create Party 
+PUT | /api/v1/parties/:partyId | Admin can edit party
+GET | /api/v1/parties | User can get all parties
+GET | /api/v1/parties/:partyId | User can get a party
+DELETE | /api/v1/parties/partyId | User can delete a party
+POST | /api/v1/offices | Admin can create an office
+GET | /api/v1/offices/:officeId | User can get an office
+GET | /api/v1/offices | User can get all offices
+POST | /api/v1/offices/register | Admin can register candidate for office
+POST | /api/v1/vote | User can vote candidate
+GET | /api/v1/voted/userId | Votes by a user
+GET | /api/v1/offices/:officeId/result | User can view election results
 
 ### Links:
-UI: http://nobioma1.github.io/Politico
-Documentation: 
+- API Host: https://politicho-ch3.herokuapp.com
+- UI: http://nobioma1.github.io/Politico
+- Documentation: 
 
 
 ## Authors
