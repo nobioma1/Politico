@@ -54,7 +54,7 @@ GET | /api/v1/offices/:officeId/result | User can view election results
 ### Links:
 - API Host: https://politicho-ch3.herokuapp.com
 - UI: http://nobioma1.github.io/Politico
-- Documentation: 
+- Documentation: https://politicho-ch3.herokuapp.com/api-docs
 
 
 ## Authors
