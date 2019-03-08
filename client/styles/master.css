@@ -1,0 +1,270 @@
+/* 
+  Smoky black #474958(header)
+  SizzlingRed #FF2F4E
+  blue crayola #3772FF
+  sun glow #FDCA40
+  platninum: #E6E8E6(background)
+*/
+
+/* Logo font */
+@font-face {
+  font-family: bulletto-killa;
+  src: url(../font/bulletto-killa/Bulletto\ Killa.ttf);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;  
+  background-color: #474958;
+}
+
+header {
+  background-color: #474958;
+  padding: 20px 10px;
+  position: fixed;
+  top: 0; 
+  width: 100%;
+  height: 70px;
+  z-index: 1;
+  display: block;
+}
+
+.logo{
+  display: inline-block;
+  margin-left: 10px;
+  width:100px;
+  color: #FFF;
+  padding-left: 20px;
+  font-weight: bolder;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: bulletto-killa, sans-serif;
+  font-size: 25px;
+}
+
+.header-btn {
+  background-color: #3772FF;
+  color: #fff;
+  border: 1px solid #3772FF;
+  font-size: 12px;
+  float: right;
+  text-decoration: none;
+  padding: 10px;
+  margin-right: 20px;
+  border-radius: 3px;
+  width: 120px;
+  text-align: center;
+}
+
+.header-link:hover{
+  background-color: #4bc970;
+  color: #ffffff;
+}
+
+main{
+  padding-top: 100px;
+  margin: 0px 10px 10px 10px;
+}
+
+.login-card {
+  padding: 40px 10px;
+  width: 300px;
+  background-color: #F7F7F7;
+  margin: 0 auto 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h1 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 2.3em;
+  color: #a2aebb;
+}
+
+.login-card input[type=submit] {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.success{
+  background-color: #5cb85c;
+  border: 1px solid #5cb85c; 
+}
+
+.warning{
+  background-color: crimson;
+  border: 1px solid crimson;
+}
+
+.btn-submit {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  width: 100%;
+  border-radius: 5px;
+}
+
+.btn-submit:hover {
+  transition: 0.5s ease-in;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.login-card a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  transition: opacity ease 0.5s;
+}
+
+.login-card a:hover {
+  opacity: 1;
+}
+
+.login-mini-link {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+}
+
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
+
+form h1 {
+  font-weight: 100;
+  margin: 0 0 8px 0;
+  text-align: left;
+  color: #474958;
+}
+
+small{
+  color: #474958;
+}
+
+.form-header{
+  margin-bottom: 10px;
+}
+
+form a{
+  color: dodgerblue;
+  text-decoration: none;
+}
+
+.center{
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="file"]{
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 8px;
+  border-radius: 10px; 
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type="date"]:focus {
+  background-color: #ddd;
+  border: 2px solid #5fcf80;
+  outline: none;
+}
+
+button {
+  padding: 10px 39px 10px 39px;
+  color: #FFF;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  float: right;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+fieldset {
+  border: 0.02px solid dodgerblue;
+  margin-bottom: 5px;
+}
+
+legend {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  background-color: #f4f7f8;
+  color: dodgerblue;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #0c0d18;
+}
+
+#output {
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+  font-family: cursive;
+  color: #8090a1;
+  transition: 3s ease-in-out;
+}
+
+@media screen and (min-width: 480px) {
+  form {
+    max-width: 500px;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  header a {
+    display: block;
+    text-align: left;
+  }
+
+  header .logo{
+    margin-left: 0px;
+  }
+  
+  header a.header-link {
+    font-size: 12px;
+  }
+
+  main{
+    padding-top: 80px;
+  }
+}

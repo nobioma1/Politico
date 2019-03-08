@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Create Account | Politico</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="../styles/master.css">
+  <link rel="stylesheet" href="../styles/popup.css">
+</head>
+
+<body onload="redirect()">
+  <header>
+    <a class="logo" href="../index.html">
+      Politico
+    </a>
+
+    <a class="header-btn" href="../index.html">
+      Login
+    </a>
+    <div class="hidden" id='err_output'></div>
+  </header>
+
+  <main>
+    <form id="newUser" method="POST" enctype="multipart/form-data">
+      <div id="display">
+        <div class="form-header">
+          <h1>Create Account</h1>
+          <hr>
+        </div>
+        <input type="text" id="fname" placeholder="Firstname" required>
+
+        <input type="text" id="lname" placeholder="Lastname" required>
+
+        <input type="email" id="user_email" placeholder="Email Address" required>
+
+        <input type="password" id="password" placeholder="Choose password" required>
+
+        <input type="text" id="phone_number" placeholder="Phone Number" required>
+
+        <label for="passport_image">Upload Profile Photo:</label>
+        <input type="file" accept="image/*" id="passport_image">
+
+        <small>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</small>
+
+        <input type="submit" name="signup" class="btn-submit success" value="Create My Account">
+      </div>
+    </form>
+  </main>
+  
+  <script type="text/javascript" src="../scripts/apiHost.js"></script>
+  <script src="../scripts/popup.js"></script>
+  <script src="../scripts/signup.js"></script>
+</body>
+
+</html>

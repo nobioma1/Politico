@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard | Politico</title>
+  <meta name="description" content="">  
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
+
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="../styles/dashboard.css">
+
+</head>
+<body>
+  <aside>
+    <a href="../pages/admin.html">
+      <h1>POLITICO</h1>
+    </a>
+
+    <button id="nav-btn">&#9776;</button>
+
+    <nav id="nav">
+      <ul>
+        <li class="active"><a href="admin.html">&#x2302; Dashboard</a></li>
+
+        <li id="ul-section">&#x2B;New</li>
+        <li>
+          <a href="#" onclick="modal('create_party')">
+            Create New Party
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="#" onclick="modal('create_office')">
+            Create Government Office
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="#" onclick="modal('make_candidate'); getCandidate()">
+            Add a Candidate
+          </a>
+        </li>
+        
+        <hr>
+        <li>
+          <a href="#" onclick="logout()">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+  </aside>
+
+  <header>
+    <div class="details">
+      <img id="avatar" src="" alt="user_photo">
+      <div class="info">
+        <p id="currentUser"><span>Welcome,</span><br>Admin,</p>
+      </div>
+    </div>
+
+    <h3>&#x29BF; Political Parties</h3>
+  </header>
+
+  <section>
+    <!-- party cards-------->
+    <div id="party" class="row">
+    </div>
+</section>
+
+<!-- Modals -->
+<div id="create_party" class="modal">
+  <form class="modal-content" action="#" enctype="multipart/form-data">
+    <div id="party_output" class="container">
+      <h3>Create New Political Party</h3>
+      <p>Please fill this form to create new political party</p>
+      <hr>
+      <label for="party_name"><strong>Party name</strong></label>
+      <input id="partyName" type="text" name="office_title" placeholder="New Party Name" required>
+
+      <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+      <input id="partyAddress" type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+
+      <label for="party_logo"><strong>Official Logo</strong></label>
+      <input id="partyLogo" type="file" name="party-logo" accept="image/*">
+
+      <p id="party_err_output"></p>
+      &nbsp;
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('create_party')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="edit_party" class="modal">
+  <form class="modal-content" action="#" enctype="multipart/form-data">
+    <div class="container">
+      <h3>Edit Political Party</h3>
+      <hr>
+      <input id="editPartyId" type="hidden">
+
+      <label for="party_name"><strong>Party name</strong></label>
+      <input id="editPartyName" type="text" name="office_title" placeholder="New Party Name" required>
+
+      <label for="party_hq_address"><strong>Headquarter's Address</strong></label>
+      <input id="editPartyAddress" type="textarea" name="party_hq_address" placeholder="Headquarter's Address" required>
+
+      <label for="party_logo"><strong>Official Logo</strong></label>
+      <input id="editPartyLogo" type="file" name="party-logo" accept="image/*">
+      
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('edit_party')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="button" class="modalbtn success-btn" onclick="updateParty(document.getElementById('editPartyId').value)">
+          Update
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="create_office" class="modal">
+  <form class="modal-content">
+    <div id="office_output" class="container">
+      <h3>Create New Government Office</h3>
+      <p>Please fill this form to create new Government office</p>
+      <hr>
+      <label for="office_title"><strong>Office Title</strong></label>
+      <input id="officeName" type="text" placeholder="New Office Title" name="office_title" required>
+
+      <label for="description"><strong>Office Type</strong></label>
+      <input id="officeType" type="textarea" placeholder="federal/ legislative/ state/ local government" name="description" required>
+
+      <p id="office_err_output"></p>
+      &nbsp;
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('create_office')" class="modalbtn cancel-btn">Cancel</button>
+        <button type="submit" class="modalbtn success-btn">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div id="make_candidate" class="modal">
+  <form class="modal-content" action="#">
+    <p id="candidate_err_output"></p>
+    <div class="container">
+      <label for="choose_office"><strong>Choose Office </strong></label>
+      <select id="chooseOffice" required>
+        <option>...</option>
+      </select>
+
+      <label for="choose_party"><strong>Select Candidate</strong></label>
+      <select id="chooseCandidate" required>
+        <option>...</option>
+      </select>
+    
+      <div class="modalbtn-section">
+        <button type="button" onclick="modal('make_candidate')" class="modalbtn cancel-btn">Cancel</button>
+        <button id="makeCandidateBtn" type="submit" class="modalbtn success-btn">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript" src="../scripts/apiHost.js"></script>
+<script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/admin.js"></script>
+</body>
+</html>
