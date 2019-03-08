@@ -14,6 +14,7 @@ describe('POST Requests', async () => {
   before(async () => {
     await db.query('DROP TABLE IF EXISTS users CASCADE');
   });
+
   describe('POST /api/v1/auth/login', async () => {
     it('should sign in a user', (done) => {
       request(app)

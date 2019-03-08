@@ -1,39 +1,30 @@
 import db from '../db';
 import helpers from './helpers';
 import auth from '../middleware/auth';
-import { userValidator, loginValidator } from '../middleware/schemaValidators';
 
 class UserController {
   /**
    * @static
    * @param {*} req contains params firstName, lastName, email, phoneNumber, passportURL
    * @param {*} res sends Object containing newly created user details
-   * 
+   *
    * - Creates a new user
    * @memberof UserController
    */
   static async createUser(req, res) {
-    // validates the request from the consumer
-    const validate = userValidator(req.body);
-    if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-      return res.status(422).json({
-        status: 422,
-        error: errorMessage,
-      });
-    }
-
-    const {
-      firstName, lastName, email, phoneNumber, passportURL,
-    } = req.body;
-
     // hash password to be dsaved on the database
     const hashedPassword = helpers.hashPassword(req.body.password);
 
     const newUserQuery = `INSERT INTO
       users(firstName, lastName, email, password, phoneNumber, passportURL)
       VALUES($1, $2, $3, $4, $5, $6) RETURNING user_id, firstName, lastName, email, phoneNumber, passportURL, isadmin`;
-    const values = [firstName.trim(), lastName.trim(), email, hashedPassword, phoneNumber.trim(), passportURL.trim()];
+    const values = [
+      req.body.firstName.trim(),
+      req.body.lastName.trim(),
+      req.body.email, hashedPassword,
+      req.body.phoneNumber.trim(),
+      !req.file ? null : req.file.url, // check for image file else set to null
+    ];
 
     try {
       const { rows } = await db.query(newUserQuery, values);
@@ -86,6 +77,10 @@ class UserController {
         });
       }
     }
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized',
+    });
   }
 
   /**
@@ -98,16 +93,6 @@ class UserController {
    */
   static async loginUser(req, res) {
     const query = 'SELECT * FROM users WHERE email = $1';
-
-    const validate = loginValidator(req.body);
-    if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-      return res.status(422).json({
-        status: 422,
-        error: errorMessage,
-      });
-    }
-
     try {
       const { rows } = await db.query(query, [req.body.email]);
       // Check for user existance in db

@@ -1,5 +1,4 @@
 import db from '../db';
-import { officeValidator } from '../middleware/schemaValidators';
 import auth from '../middleware/auth';
 
 class OfficeController {
@@ -18,16 +17,6 @@ class OfficeController {
       const { type, name } = req.body;
       const createQuery = 'INSERT INTO offices (type, name) VALUES ($1, $2) RETURNING *';
       const values = [type, name];
-
-      // Validates request from consumer
-      const validate = officeValidator(req.body);
-      if (validate.error) {
-        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-        return res.status(422).json({
-          status: 422,
-          error: errorMessage,
-        });
-      }
 
       try {
         const { rows } = await db.query(createQuery, values);
@@ -50,7 +39,7 @@ class OfficeController {
 
   /**
    * @static
-   * @param {*} req 
+   * @param {*} req
    * @param {*} res response, sends object of all existing offices
    *
    * - Gets all existing offices
@@ -116,9 +105,9 @@ class OfficeController {
     // Gets the passed in the token generated on authentication
     const user = auth.tokenBearer(req);
     if (user.isAdmin === true) {
-      const getCanNamesQuery = 'SELECT firstname, lastname FROM users WHERE user_id=$1';
+      const getCanNamesQuery = 'SELECT firstname, lastname, passporturl FROM users WHERE user_id=$1';
       const allCandidatesQuery = 'SELECT * FROM candidates WHERE candidate_user=$1';
-      const createCandidateQuery = 'INSERT INTO candidates (office, candidate_user, candidate_name) VALUES ($1, $2, $3) RETURNING *';
+      const createCandidateQuery = 'INSERT INTO candidates (office, candidate_user, candidate_name, candidate_avatar) VALUES ($1, $2, $3, $4) RETURNING *';
       try {
         const getCanNames = await db.query(getCanNamesQuery, [req.body.candidate_id]);
         const candidates = await db.query(allCandidatesQuery, [req.body.candidate_id]);
@@ -130,7 +119,12 @@ class OfficeController {
         }
 
         const candidateName = `${getCanNames.rows[0].firstname} ${getCanNames.rows[0].lastname}`;
-        const { rows } = await db.query(createCandidateQuery, [req.body.office_id, req.body.candidate_id, candidateName]);
+        const { rows } = await db.query(createCandidateQuery, [
+          req.body.office_id,
+          req.body.candidate_id,
+          candidateName,
+          getCanNames.rows[0].passporturl,
+        ]);
         return res.status(201).json({
           status: 201,
           data: {
@@ -151,7 +145,7 @@ class OfficeController {
     });
   }
 
- /**
+  /**
    * @static
    * @param {*} req request, contains params officeId
    * @param {*} res response, sends object of candidate where officeId

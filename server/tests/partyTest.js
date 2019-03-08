@@ -127,6 +127,24 @@ describe('Party Test', () => {
       });
   });
 
+  it('Should Update Party, Validating Input', (done) => {
+    request(app)
+      .put('/api/v1/parties/1')
+      .set('x-access-token', testJwt)
+      .send({
+        name: '123',
+        hqAddress: '123',
+        logoUrl: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
+
   // Get An Existing Party Test
   it('Should Get An Existing Party', (done) => {
     request(app)

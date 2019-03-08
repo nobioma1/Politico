@@ -25,7 +25,19 @@ describe('Authentication', () => {
     await db.query(`${schema.partiesTable}; ${schema.officesTable}; ${schema.usersTable};
     ${schema.candidatesTable}; ${schema.voteTable}`);
   });
-  
+
+  // Welcome message on entry point
+  it('Welcome Message, Entry Point', (done) => {
+    request(app)
+      .get('/')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
   // Signup Test
   it('Should Create a User Account', (done) => {
     request(app)
@@ -42,7 +54,7 @@ describe('Authentication', () => {
         expect(res.body.data[0].user.lastname).to.equal('testlastname');
         expect(res.body.data[0].user.email).to.equal('testemail@test.com');
         expect(res.body.data[0].user.phonenumber).to.equal('08765432134');
-        expect(res.body.data[0].user.passporturl).to.equal('');
+        expect(res.body.data[0].user.passporturl).to.equal(null);
         expect(res.body.data[0].user.isadmin).to.equal(false);
 
         if (err) { return done(err); }
@@ -74,6 +86,21 @@ describe('Authentication', () => {
       });
   });
 
+  // Incorrect Login Details, Validate Input
+  it('Should Validate User login Input', (done) => {
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: '123',
+        password: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
   // Login Test
   it('Should Login User', (done) => {
     request(app)
@@ -93,7 +120,7 @@ describe('Authentication', () => {
         expect(res.body.data[0].user.lastname).to.equal('testlastname');
         expect(res.body.data[0].user.email).to.equal('testemail@test.com');
         expect(res.body.data[0].user.phonenumber).to.equal('08765432134');
-        expect(res.body.data[0].user.passporturl).to.equal('');
+        expect(res.body.data[0].user.passporturl).to.equal(null);
         expect(res.body.data[0].user.isAdmin).to.equal(false);
 
 

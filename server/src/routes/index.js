@@ -9,12 +9,12 @@ import auth from '../middleware/auth';
 const app = express();
 
 // authentication routes
-app.use('/api/v1/auth', userRouter);
+app.use('/auth', userRouter);
 // parties route with a layer of authentication
-app.use('/api/v1/parties', auth.verifyToken, partiesRouter);
+app.use('/parties', auth.verifyToken, partiesRouter);
 // offices route with a layer if authentication
-app.use('/api/v1/offices', auth.verifyToken, officeRouter);
+app.use('/offices', auth.verifyToken, officeRouter);
 // vote route with a layer of authenthication
-app.use('/api/v1', auth.verifyToken, voteRouter);
+app.use('/', auth.verifyToken, voteRouter);
 
 export default app;
