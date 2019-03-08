@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard | Politico</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/popup.css">
+  <!-- <link rel="stylesheet" href="../styles/master.css"> -->
+
+</head>
+
+<body>
+  <aside>
+    <a href="user.html">
+      <h1>POLITICO</h1>
+    </a>
+
+    <button id="nav-btn">&#9776;</button>
+
+    <nav id="nav">
+      <ul>
+        <li class="active"><a href="user.html">&#x2302; Dashboard</a></li>
+
+        <li id="ul-section">&#x29BF; Actions</li>
+        <li>
+          <a href="all_parties.html">
+            View All Political Parties
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="check_elections.html">
+            Check Election Result
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="elections_voted.html">
+            Elections You Voted
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="#" onclick="logout()">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+  </aside>
+
+  <header>
+    <div class="details">
+      <img id="avatar" src="" alt="user_photo">
+      <div class="info">
+        <p id="currentUser"><span>Welcome,</span><br>User, </p>
+        <a href="edit_profile.html">Edit Profile</a>
+      </div>
+    </div>
+
+    <h3> &#x29BF; Offices Open For Election</h3>
+  </header>
+  <section>
+    <div class="hidden" id='err_output'></div>
+    
+    <!--office cards----->
+    <div id="office">
+  
+    </div>
+    <!-------------------->
+  </section>
+
+  <div id="particular_office" class="modal">
+    <div class="modal-content">
+      <button type="button" onclick="modal('particular_office')" id="close-btn">X</button>
+      <h3>Vote</h3>
+      <div id="particularOfficeOutput" class="container">
+
+        
+        <!-- ------------- -->
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="../scripts/apiHost.js"></script>
+  <script src="../scripts/popup.js"></script>
+  <script type="text/javascript" src="../scripts/main.js"></script>
+  <script type="text/javascript" src="../scripts/user.js"></script>  
+  <script type="text/javascript" src="../scripts/particularOffice.js"></script>
+</body>
+
+</html>

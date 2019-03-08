@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Parties | Politico</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="../styles/dashboard.css">
+
+</head>
+
+<body>
+  <aside>
+    <a href="../pages/user.html">
+      <h1>POLITICO</h1>
+    </a>
+
+    <button id="nav-btn">&#9776;</button>
+
+    <nav id="nav">
+      <ul>
+        <li><a href="user.html">&#x2302; Dashboard</a></li>
+
+        <li id="ul-section">&#x29BF; Actions</li>
+        <li class="active">
+          <a href="all_parties.html">
+            View All Political Parties
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="check_elections.html">
+            Check Election Result
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="elections_voted.html">
+            Elections You Voted
+          </a>
+        </li>
+
+        <hr>
+        <li>
+          <a href="#" onclick="logout()">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <header>
+    <div class="details">
+      <img id="avatar" src="" alt="user_photo">
+      <div class="info">
+        <p id="currentUser"><span>Welcome,</span><br>User, </p>
+        <a href="edit_profile.html">Edit Profile</a>
+      </div>
+    </div>
+
+    <h3>&#x29BF Political Parties</h3>
+  </header>
+
+  <section>
+    <div id="party" class="row">
+   
+    </div>
+  </section>
+  <script type="text/javascript" src="../scripts/apiHost.js"></script>
+  <script type="text/javascript" src="../scripts/main.js"></script>
+  <script type="text/javascript" src="../scripts/allParties.js"></script>  
+</body>
+
+</html>
