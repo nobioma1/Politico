@@ -1,4 +1,3 @@
-document.getElementById("currentUser").innerText += ` ${user.name}`;
 const card = document.getElementById('party');
 
 fetch(`${HOST}/api/v1/parties`, {
@@ -14,7 +13,7 @@ fetch(`${HOST}/api/v1/parties`, {
         card.innerHTML += `
             <div class="column">
               <div class="square-card">
-                <img src="../images/flags/flags.png" alt="party logo">
+                <img src="${!!party.logourl ? party.logourl : '../images/no-image.jpg' }" alt="party logo">
                 <div class="sqaure-card-container">
                  <h4><b>${party.name}</b></h4>
                  <p>${party.hqaddress}</p>

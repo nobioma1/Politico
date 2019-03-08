@@ -15,7 +15,7 @@ async function officeCandidates(officeId) {
           candidateCard.innerHTML += `
             <div class="card">
               <div class="card-img">
-                <img src="../images/img_avatar2.png" alt="user photo">
+                <img src="${!!item.candidate_avatar ? item.candidate_avatar : '../images/no-avatar.png' }" alt="user photo">
             </div>
             <div class="card-right">
                 <div class="card-content">
@@ -59,7 +59,7 @@ async function vote(officeId, candidateId) {
         err_output.innerText = data.error;
         errorClass();
       } else {
-        err_output.innerText = 'Vote Recoreded Successfully';
+        err_output.innerText = 'Vote Recorded Successfully';
         errorClass();
       }
     }).catch((error) => {

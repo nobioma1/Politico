@@ -59,7 +59,7 @@
 
   <header>
     <div class="details">
-      <img src="../images/img_avatar.png" alt="user_photo">
+      <img id="avatar" src="" alt="user_photo">
       <div class="info">
         <p id="currentUser"><span>Welcome,</span><br>Admin,</p>
       </div>
@@ -76,7 +76,7 @@
 
 <!-- Modals -->
 <div id="create_party" class="modal">
-  <form class="modal-content" action="#">
+  <form class="modal-content" action="#" enctype="multipart/form-data">
     <div id="party_output" class="container">
       <h3>Create New Political Party</h3>
       <p>Please fill this form to create new political party</p>
@@ -101,7 +101,7 @@
 </div>
 
 <div id="edit_party" class="modal">
-  <form class="modal-content" action="#">
+  <form class="modal-content" action="#" enctype="multipart/form-data">
     <div class="container">
       <h3>Edit Political Party</h3>
       <hr>
@@ -171,6 +171,7 @@
   </form>
 </div>
 
+<script type="text/javascript" src="../scripts/apiHost.js"></script>
 <script type="text/javascript" src="../scripts/main.js"></script>
 <script type="text/javascript" src="../scripts/admin.js"></script>
 </body>

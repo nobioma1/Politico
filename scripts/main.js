@@ -1,5 +1,3 @@
-const HOST = document.location.host === '127.0.0.1:8080' ? 'http://localhost:3000' : 'https://politicho-ch3.herokuapp.com';
-
 // 'nav' sidebar on dashboard
 const navDisplay = () => {
   const element = document.getElementById('nav');
@@ -33,6 +31,7 @@ function getCookie() {
       name: ca[1],
       status: ca[2],
       x: ca[3],
+      avatar: !!ca[4] ? ca[4] : '../images/no-avatar.png',
     };
     return storedData;
   }
@@ -40,6 +39,9 @@ function getCookie() {
 }
 
 const user = getCookie();
+document.getElementById("currentUser").innerText += ` ${user.name}`;
+document.getElementById("avatar").src = user.avatar;
+
 
 function logout() {
   document.cookie = 'poliJwtNmsStusUsr=; expires=Mon, 01 Jan 1900 00:00:00 UTC; path=/Politico;';

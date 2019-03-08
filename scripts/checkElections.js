@@ -1,6 +1,5 @@
 const card = document.getElementById('office');
 const cardResult = document.getElementById('resultRow')
-document.getElementById('currentUser').innerText += ` ${user.name}`;
 
 fetch(`${HOST}/api/v1/offices`, {
   headers: { 'x-access-token': user.token },

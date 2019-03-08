@@ -1,5 +1,4 @@
 const card = document.getElementById('party');
-document.getElementById('currentUser').innerText += ` ${user.name}`;
 
 // fetch api to get all parties
 fetch(`${HOST}/api/v1/parties`, {
@@ -16,7 +15,11 @@ fetch(`${HOST}/api/v1/parties`, {
         card.innerHTML += `
             <div class="column">
               <div class="square-card">
-                <img src="../images/flags/flags.png" alt="party logo">
+                <img src="${
+                  party.logourl === null
+                    ? '../images/no-avatar.png'
+                    : party.logourl
+                }" alt="party logo">
                 <div class="sqaure-card-container">
                  <h4><b>${party.name}</b></h4>
 
@@ -38,19 +41,19 @@ fetch(`${HOST}/api/v1/parties`, {
 async function addNewParty(event) {
   event.preventDefault();
 
-  const newPartyData = {
-    name: document.getElementById('partyName').value,
-    hqAddress: document.getElementById('partyAddress').value,
-    logoUrl: document.getElementById('partyLogo').value,
-  };
+  let partyData = new FormData();
+  const partyLogo = document.getElementById('partyLogo');
 
+  partyData.append('name', document.getElementById('partyName').value);
+  partyData.append('hqAddress', document.getElementById('partyAddress').value);
+  partyData.append('logoURL', partyLogo.files[0]);
+  
   await fetch(`${HOST}/api/v1/parties`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       'x-access-token': user.token,
     },
-    body: JSON.stringify(newPartyData),
+    body: partyData,
   })
     .then(response => response.json())
     .then((data) => {
@@ -95,21 +98,19 @@ async function deleteParty(partyId) {
 
 // Updating a Party
 async function updateParty(partyId) {
-  const updatePartyData = {
-    name: document.getElementById('editPartyName').value,
-    hqAddress: document.getElementById('editPartyAddress').value,
-    logoUrl: document.getElementById('editPartyLogo').value,
-  };
+  let updatePartyData = new FormData();
+  const newPartyLogo = document.getElementById('editPartyLogo');
 
-  console.log(updatePartyData);
+  updatePartyData.append('name', document.getElementById('editPartyName').value);
+  updatePartyData.append('hqAddress', document.getElementById('editPartyAddress').value);
+  updatePartyData.append('logoURL', newPartyLogo.files[0]);
 
   await fetch(`${HOST}/api/v1/parties/${partyId}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
       'x-access-token': user.token,
     },
-    body: JSON.stringify(updatePartyData),
+    body: updatePartyData,
   })
     .then(response => response.json())
     .then((data) => {
@@ -188,6 +189,7 @@ async function addNewOffice(event) {
 
 document.getElementById('create_office').addEventListener('submit', addNewOffice);
 
+// function to get a candidate 
 async function getCandidate() {
   const candidate = document.getElementById('chooseCandidate');
   const office = document.getElementById('chooseOffice');

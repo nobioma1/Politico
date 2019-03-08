@@ -1,5 +1,3 @@
-// Insert Name of Current User
-document.getElementById('currentUser').innerText += ` ${user.name}`;
 // Elections User Voted Table
 const votedTable = document.getElementById('list-table');
 // Get the current UserId Stored as a Cookie

@@ -6,7 +6,7 @@ async function loginUser(event) {
     password: document.getElementById('password').value,
   };
   
-  await fetch("https://politicho-ch3.herokuapp.com/api/v1/auth/login", {
+  await fetch(`${HOST}/api/v1/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -31,6 +31,7 @@ async function loginUser(event) {
           current.user.firstname
         } ${current.user.lastname}%${current.user.isAdmin}%${
           current.user.user_id
+        }%${current.user.passporturl
         }%${expires}%path=/`;
         // Redirects User depending in role
         redirect()
@@ -40,18 +41,6 @@ async function loginUser(event) {
       document.getElementById("err_output").innerText = "Error Logging in";
       errorClass();
     });
-}
-
-function redirect() {
-  const ca = document.cookie.split('%');
-  if (ca[0] !== '') {
-    const status = ca[2];
-    if (status === true) {
-      window.location.replace('/Politico/pages/admin.html');
-    } else {
-      window.location.replace('/Politico/pages/user.html');
-    }
-  }
 }
 
 document.getElementById('loginForm').addEventListener('submit', loginUser);

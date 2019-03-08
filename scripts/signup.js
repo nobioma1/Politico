@@ -1,21 +1,19 @@
 async function addNewUser(event) {
   event.preventDefault();
 
-  const newUserData = {
-    firstName: document.getElementById('fname').value,
-    lastName: document.getElementById('lname').value,
-    email: document.getElementById('user_email').value,
-    password: document.getElementById('password').value,
-    phoneNumber: document.getElementById('phone_number').value,
-    passportURL: document.getElementById('passport_image').value,
-  };
+  let userData = new FormData();
+  const avatarFile = document.querySelector("input[type='file']");
 
-  await fetch('https://politicho-ch3.herokuapp.com/api/v1/auth/signup', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(newUserData)
+  userData.append('firstName', document.getElementById('fname').value);
+  userData.append('lastName', document.getElementById('lname').value);
+  userData.append('email', document.getElementById('user_email').value);
+  userData.append('password', document.getElementById('password').value);
+  userData.append('phoneNumber', document.getElementById('phone_number').value);
+  userData.append('passportURL', avatarFile.files[0]);
+
+  await fetch(`${HOST}/api/v1/auth/signup`, {
+    method: 'POST',
+    body: userData
   })
     .then(response => response.json())
     .then(data => {
