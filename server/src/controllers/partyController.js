@@ -1,5 +1,4 @@
 import db from '../db';
-import { partyValidator } from '../middleware/schemaValidators';
 import auth from '../middleware/auth';
 
 class PartyController {
@@ -14,22 +13,13 @@ class PartyController {
   static async createParty(req, res) {
     // Gets the passed in the token generated on authentication
     const user = auth.tokenBearer(req);
+
     // check the status of user ADMIN or USER
     if (user.isAdmin === true) {
-      const { name, hqAddress, logoUrl } = req.body;
+      const { name, hqAddress } = req.body;
       const createQuery = `INSERT INTO parties(name, hqAddress, logoUrl)
       VALUES ($1, $2, $3) RETURNING *`;
-      const values = [name.trim(), hqAddress.trim(), logoUrl.trim()];
-
-      // validate the request from consumer.
-      const validate = partyValidator(req.body);
-      if (validate.error) {
-        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
-        return res.status(422).json({
-          status: 422,
-          error: errorMessage,
-        });
-      }
+      const values = [name.trim(), hqAddress.trim(), !req.file ? null : req.file.url];
 
       try {
         const { rows } = await db.query(createQuery, values);
@@ -129,15 +119,6 @@ class PartyController {
       SET name=$1, hqAddress=$2, logoURL=$3
       WHERE party_id=$4 RETURNING *`;
 
-      // validates the params
-      const validate = partyValidator(req.body);
-      if (validate.error) {
-        const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''),);
-        return res.status(422).json({
-          status: 422,
-          error: errorMessage,
-        });
-      }
       try {
         const { rows } = await db.query(getPartyQuery, [req.params.id]);
         if (!rows[0]) {
@@ -146,11 +127,11 @@ class PartyController {
             data: 'Party does not exist',
           });
         }
-        const { name, hqAddress, logoUrl } = req.body;
+        const { name, hqAddress } = req.body;
         const values = [
           name.trim(),
           hqAddress.trim(),
-          logoUrl.trim(),
+          !req.file ? null : req.file.url,
           req.params.id,
         ];
         const response = await db.query(editQuery, values);
@@ -159,6 +140,12 @@ class PartyController {
           data: [response.rows[0]],
         });
       } catch (error) {
+        if (error.routine === '_bt_check_unique') {
+          return res.status(400).send({
+            status: 400,
+            error: 'Party with already exists',
+          });
+        }
         return res.status(400).send({
           status: 400,
           error: 'Party Edit Not Saved!! Server Error, Please Try Again',

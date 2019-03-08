@@ -1,5 +1,4 @@
 import db from '../db';
-import { voteValidator } from '../middleware/schemaValidators';
 import auth from '../middleware/auth';
 
 class VoteController {
@@ -12,16 +11,6 @@ class VoteController {
    * @memberof VoteController
    */
   static async vote(req, res) {
-    // validates the request from the consumer
-    const validate = voteValidator(req.body);
-    if (validate.error) {
-      const errorMessage = validate.error.details.map(m => m.message.replace(/[^a-zA-Z0-9 ]/g, ''));
-      return res.status(422).json({
-        status: 422,
-        error: errorMessage,
-      });
-    }
-
     // gets the id of the current user in the token passed
     const { userId } = auth.tokenBearer(req);
 

@@ -34,6 +34,7 @@ const tables = {
       candidate_user INTEGER NOT NULL REFERENCES users(user_id),
       office INTEGER NOT NULL REFERENCES offices(office_id),
       candidate_name VARCHAR(250) NOT NULL,
+      candidate_avatar VARCHAR(250),
       created_date TIMESTAMP DEFAULT NOW(), 
       PRIMARY KEY(candidate_id, office, candidate_user)
     )`,
@@ -52,7 +53,7 @@ const tables = {
     DROP TABLE IF EXISTS offices CASCADE;
     DROP TABLE IF EXISTS candidates CASCADE;
     DROP TABLE IF EXISTS votes CASCADE;
-  `,
+  `
 };
 
 export default tables;

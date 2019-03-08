@@ -1,4 +1,4 @@
-import { describe, it, after } from 'mocha';
+import { describe, it } from 'mocha';
 import chai, { expect } from 'chai';
 import request from 'supertest';
 import chaiHttp from 'chai-http';
@@ -38,13 +38,29 @@ describe('Vote Candidate Test', () => {
       });
   });
 
+  it('Should Vote Candidate Input must be number', (done) => {
+    request(app)
+      .post('/api/v1/vote')
+      .set('x-access-token', testJwt)
+      .send({
+        office: 'a',
+        candidate: 'c',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
   it('Should Not Vote Candidate, Validate Input', (done) => {
     request(app)
       .post('/api/v1/vote')
       .set('x-access-token', testJwt)
       .send({})
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
+        expect(res.statusCode).to.equal(422);
         expect(res.body).to.be.an('object');
 
         if (err) { return done(err); }
